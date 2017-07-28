@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Science in Education: A Step-by-Step Guide</title>
+  <meta name="description" content="Doing data science: a step-by-step guide">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Science in Education: A Step-by-Step Guide" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Doing data science: a step-by-step guide" />
+  <meta name="github-repo" content="wdoyle42/data_step" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Science in Education: A Step-by-Step Guide" />
+  
+  <meta name="twitter:description" content="Doing data science: a step-by-step guide" />
+  
+
+<meta name="author" content="Will Doyle">
+
+
+<meta name="date" content="2017-07-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="intro.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> A few notes before we get started</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Welcome to Data Science!</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introductions"><i class="fa fa-check"></i><b>2.1</b> Introductions</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#installing-r"><i class="fa fa-check"></i><b>2.2</b> Installing R</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#installing-rstudio"><i class="fa fa-check"></i><b>2.3</b> Installing Rstudio</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#installing-git"><i class="fa fa-check"></i><b>2.4</b> Installing git</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#getting-set-up-on-github"><i class="fa fa-check"></i><b>2.5</b> Getting set up on GitHub</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#initializing-repos"><i class="fa fa-check"></i><b>2.6</b> Initializing repos</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#cloning-down-your-repo"><i class="fa fa-check"></i><b>2.7</b> Cloning down your repo</a></li>
+<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#yes-we-code-running-r-code"><i class="fa fa-check"></i><b>2.8</b> Yes We Code! Running R Code</a></li>
+<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#your-first-commit-hello_world.rmd"><i class="fa fa-check"></i><b>2.9</b> Your first commit: hello_world.Rmd</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conditional-means.html"><a href="conditional-means.html"><i class="fa fa-check"></i><b>3</b> Conditional Means</a><ul>
+<li class="chapter" data-level="3.1" data-path="conditional-means.html"><a href="conditional-means.html#dataset-for-this-week"><i class="fa fa-check"></i><b>3.1</b> Dataset for this week</a></li>
+<li class="chapter" data-level="3.2" data-path="conditional-means.html"><a href="conditional-means.html#dependent-variable"><i class="fa fa-check"></i><b>3.2</b> Dependent Variable</a></li>
+<li class="chapter" data-level="3.3" data-path="conditional-means.html"><a href="conditional-means.html#unconditional-means"><i class="fa fa-check"></i><b>3.3</b> Unconditional Means</a></li>
+<li class="chapter" data-level="3.4" data-path="conditional-means.html"><a href="conditional-means.html#conditional-means-with-one-predictor-variable"><i class="fa fa-check"></i><b>3.4</b> Conditional Means With One Predictor Variable</a></li>
+<li class="chapter" data-level="3.5" data-path="conditional-means.html"><a href="conditional-means.html#conditional-means-with-multiple-predictors"><i class="fa fa-check"></i><b>3.5</b> Conditional Means with Multiple Predictors</a></li>
+<li class="chapter" data-level="3.6" data-path="conditional-means.html"><a href="conditional-means.html#final-comparison"><i class="fa fa-check"></i><b>3.6</b> Final Comparison</a></li>
+<li class="chapter" data-level="3.7" data-path="conditional-means.html"><a href="conditional-means.html#applications-of-the-conditional-mean"><i class="fa fa-check"></i><b>3.7</b> Applications of the Conditional Mean</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science in Education: A Step-by-Step Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="conditional-means" class="section level1">
+<h1><span class="header-section-number">3</span> Conditional Means</h1>
+<p>The conditional mean will be our first predictive algorithm. Conditional means answer the question: “Given what we know about a certain case, what can expect to see on average?” The conditional mean is a powerful tool that is typically quite easy to explain to decision-makers.</p>
+<p>We’ll go through the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Computing and plotting unconditional means</li>
+<li>Computing and plotting conditional means using a single predictor.</li>
+<li>Computing and plotting conditional means using multiple predictors.</li>
+</ol>
+<div id="dataset-for-this-week" class="section level2">
+<h2><span class="header-section-number">3.1</span> Dataset for this week</h2>
+<p>We will be working with a dataset put together by the census bureau that summarizes the characteristics of the 3,088 counties in the United States.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;pd.Rdata&quot;</span>)
+
+pd</code></pre></div>
+<pre><code>## # A tibble: 3,088 × 55
+##     fips pop2013 pop2010_base popchange_pc pop2010 popu5 popu18 pop65p
+## *  &lt;chr&gt;   &lt;int&gt;        &lt;int&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1  01001   55246        54571          1.2   54571   6.1   25.4   13.5
+## 2  01003  195540       182265          7.3  182265   5.7   22.4   18.1
+## 3  01005   27076        27457         -1.4   27457   5.8   21.1   15.9
+## 4  01007   22512        22919         -1.8   22915   5.3   21.3   14.3
+## 5  01009   57872        57322          1.0   57322   6.1   23.8   16.4
+## 6  01011   10639        10915         -2.5   10914   6.3   21.0   14.6
+## 7  01013   20265        20946         -3.3   20947   6.1   23.3   17.7
+## 8  01015  116736       118572         -1.5  118572   5.8   22.2   15.5
+## 9  01017   34162        34170          0.0   34215   5.9   21.4   17.8
+## 10 01019   26203        25986          0.8   25989   4.8   20.7   20.1
+## # ... with 3,078 more rows, and 47 more variables: female_pc &lt;dbl&gt;,
+## #   white_pc &lt;dbl&gt;, black_pc &lt;dbl&gt;, am_ind_pc &lt;dbl&gt;, asian_pc &lt;dbl&gt;,
+## #   hawaii_pi_pc &lt;dbl&gt;, twomore_race_pc &lt;dbl&gt;, hispanic_pc &lt;dbl&gt;,
+## #   white_non_hispanic_pc &lt;dbl&gt;, same_house_pc &lt;dbl&gt;,
+## #   foreign_born_pc &lt;dbl&gt;, other_eng_home_pc &lt;dbl&gt;, hs_grad_pc &lt;dbl&gt;,
+## #   coll_grad_pc &lt;dbl&gt;, veterans &lt;int&gt;, travel_time &lt;dbl&gt;,
+## #   housing_units &lt;int&gt;, homeown_rate &lt;dbl&gt;, house_unit_multi &lt;dbl&gt;,
+## #   median_home_val &lt;int&gt;, households &lt;int&gt;, person_per_hh &lt;dbl&gt;,
+## #   per_capita_inc &lt;int&gt;, median_hh_inc &lt;int&gt;,
+## #   persons_below_poverty &lt;dbl&gt;, pv_nonfarm &lt;int&gt;,
+## #   pv_nonfarm_employ &lt;int&gt;, pv_nonfarm_employ_ch &lt;dbl&gt;,
+## #   nonemployer_est &lt;int&gt;, firms &lt;int&gt;, firms_black_own_pc &lt;dbl&gt;,
+## #   firms_amind_own_pc &lt;dbl&gt;, firms_asian_own_pc &lt;dbl&gt;,
+## #   firms_hawaii_pi_own_pc &lt;dbl&gt;, firms_hispanic_own_pc &lt;dbl&gt;,
+## #   firms_female_own_pc &lt;dbl&gt;, manufacture_ship &lt;dbl&gt;, wholesale &lt;dbl&gt;,
+## #   retail &lt;dbl&gt;, retail_percap &lt;int&gt;, hospitality &lt;int&gt;,
+## #   bldg_permits &lt;int&gt;, land_area &lt;dbl&gt;, pop_per_square &lt;dbl&gt;,
+## #   county &lt;chr&gt;, percapinc.2010 &lt;dbl&gt;, percapinc.2012 &lt;dbl&gt;</code></pre>
+<p>The codebook for this dataset is stored as another dataset, <code>labels_explain</code>. The first column in this dataset is variable names, the second column is a full explanation of that variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Full explanation of data
+<span class="kw">load</span>(<span class="st">&quot;lab_explain.Rdata&quot;</span>)
+
+lab_explain</code></pre></div>
+<pre><code>## # A tibble: 51 × 2
+##         varname                                                      label
+##          &lt;fctr&gt;                                                     &lt;fctr&gt;
+## 1       pop2013                                  Population, 2013 estimate
+## 2  pop2010_base                  Population, 2010 (April 1) estimates base
+## 3  popchange_pc Population, percent change - April 1, 2010 to July 1, 2013
+## 4       pop2010                                           Population, 2010
+## 5         popu5                       Persons under 5 years, percent, 2013
+## 6        popu18                      Persons under 18 years, percent, 2013
+## 7        pop65p                   Persons 65 years and over, percent, 2013
+## 8     female_pc                              Female persons, percent, 2013
+## 9      white_pc                                 White alone, percent, 2013
+## 10     black_pc             Black or African American alone, percent, 2013
+## # ... with 41 more rows</code></pre>
+<p><em>Quick Exercise: Find the per capita income and the percent of the population with a bachelor’s degree for the county you’re from.</em></p>
+</div>
+<div id="dependent-variable" class="section level2">
+<h2><span class="header-section-number">3.2</span> Dependent Variable</h2>
+<p>Our working example will be based on predicting income in a given county. Suppose we want to know what income level we can expect for a geographic area based on observed characteristics, such as the proportion of the population with a bachelor’s degree. How would we predict the income based on what we know about the geographic area?</p>
+<p>Let’s begin by plotting the data to see what it looks like. To do this I need to first rank the counties by income. To create a rank variable that will be stored in the <code>pd</code> dataset, I use the <code>mutate</code> command. This creates a variable based on some calculation then stores it in the same dataset. I’m then going to plot incomes for each county in descending rank order. Using the <code>plotly</code> library I can make this interactive so we know which counties we’re talking about.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a rank variable for income 
+pd&lt;-pd%&gt;%<span class="kw">mutate</span>(<span class="dt">percapinc_rank=</span><span class="kw">rank</span>(percapinc<span class="fl">.2010</span>))
+
+## Plot by rank
+
+gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>pd , <span class="kw">aes</span>(<span class="dt">x=</span>percapinc_rank,
+                         <span class="dt">y=</span>percapinc<span class="fl">.2010</span>,
+                         <span class="dt">text=</span>county))
+##Add Axis Labels
+gg&lt;-gg+<span class="kw">xlab</span>(<span class="st">&quot;Rank&quot;</span>)+<span class="kw">ylab</span>(<span class="st">&quot;Per Capita Income, 2010&quot;</span>)
+
+## Add Points
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>,<span class="dt">size=</span>.<span class="dv">5</span>)
+
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/simple_plots-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Save for later
+gg1&lt;-gg
+
+<span class="co"># Make Interactive plot</span>
+<span class="co">#gg_p&lt;-ggplotly(gg)</span>
+
+<span class="co">#gg_p</span></code></pre></div>
+</div>
+<div id="unconditional-means" class="section level2">
+<h2><span class="header-section-number">3.3</span> Unconditional Means</h2>
+<p>If you were asked to predict the income for a given area without any additional information, the likely best guess is the overall average. We’re going to begin with the unconditional mean, or simple average, as our first prediction. We’ll again use the <code>mutate</code> command to plug in a variable that will be the average for every county, and we’ll plot this as a predictor.</p>
+<p>Our notation for the unconditional mean as a predictor is:</p>
+<p><span class="math display">\[\hat{Y}=\bar{Y} \]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Unconditional Average
+pd%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_percapinc.2010=</span><span class="kw">mean</span>(percapinc<span class="fl">.2010</span>,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_percapinc.2010
+##                 &lt;dbl&gt;
+## 1            34002.98</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Unconditional Average as a Predictor
+pd&lt;-pd%&gt;%<span class="kw">mutate</span>(<span class="dt">mean_percapinc.2010=</span><span class="kw">mean</span>(percapinc<span class="fl">.2010</span>,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))
+
+##Plotting
+gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>pd,<span class="kw">aes</span>(<span class="dt">y=</span>percapinc<span class="fl">.2010</span>,<span class="dt">x=</span>percapinc_rank,<span class="dt">color=</span><span class="st">&quot;Actual&quot;</span>))
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>,<span class="dt">size=</span>.<span class="dv">5</span>)
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y=</span>mean_percapinc<span class="fl">.2010</span>,<span class="dt">x=</span>percapinc_rank,
+                  <span class="dt">color=</span><span class="st">&quot;Predicted: Unconditional Mean&quot;</span>),
+                  <span class="dt">size=</span>.<span class="dv">5</span>)
+gg&lt;-gg+<span class="kw">xlab</span>(<span class="st">&quot;Rank of Per Capita Income&quot;</span>)+<span class="kw">ylab</span>(<span class="st">&quot;Per Capita Income&quot;</span>)
+gg&lt;-gg+<span class="kw">scale_color_manual</span>(<span class="dt">name=</span><span class="st">&quot;Type&quot;</span>,
+                          <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Actual&quot;</span>=<span class="st">&quot;black&quot;</span>,
+                          <span class="st">&quot;Predicted: Unconditional Mean&quot;</span>=<span class="st">&quot;blue&quot;</span>)
+                          )
+gg&lt;-gg+<span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)
+
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Save for later
+
+gg2&lt;-gg</code></pre></div>
+<p>This is of course a terrible prediction. In the absence of any other information, it’s many times the best we can do, but we really ought to be able to do better.</p>
+<p>To understand how far off we are, we need to summarize our errors. We will use different ways of doing this this semester, but let’s start with a very standard one, Root Mean Squared Error, or RMSE. An error term is the vertical distance between each point and its prediction. The RMSE is the square root of the sum of squared errors (why do we square them?).</p>
+<p><span class="math display">\[RMSE(\hat{Y})=\sqrt{ 1/n \sum_{i=1}^n(Y_i-\hat{Y_i})^2} \]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pd&lt;-pd%&gt;%<span class="kw">mutate</span>(<span class="dt">e1=</span>percapinc<span class="fl">.2010</span>-mean_percapinc<span class="fl">.2010</span>)
+
+## RMSE
+
+rmse &lt;-<span class="st"> </span>function(error)
+<span class="co"># Function that returns Root Mean Squared Error</span>
+  {
+  <span class="kw">sqrt</span>(<span class="kw">mean</span>(error^<span class="dv">2</span>))
+}
+
+rmse1&lt;-<span class="kw">rmse</span>(pd$e1)
+rmse1</code></pre></div>
+<pre><code>## [1] 7817.037</code></pre>
+</div>
+<div id="conditional-means-with-one-predictor-variable" class="section level2">
+<h2><span class="header-section-number">3.4</span> Conditional Means With One Predictor Variable</h2>
+<p>To incorporate additional information into the mean, we need to calculate averages at levels of other predictors. Let’s calculate the average per capita income at different levels of college education. The code below will calculate average income across counties at four different levels of college education– the four quantiles of college education in the dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Condtional Average across a single variable
+
+myprob=.<span class="dv">25</span> ## This gives the number of groups--.25=4 groups
+
+## Create a variable for quantiles of college education
+pd&lt;-pd%&gt;%<span class="kw">mutate</span>(<span class="dt">coll_grad_level=</span><span class="kw">cut</span>(coll_grad_pc,
+                                    <span class="dt">breaks=</span><span class="kw">quantile</span>(coll_grad_pc,
+                                                  <span class="dt">probs=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>myprob)
+                                                    )
+                                    )
+                )
+
+<span class="kw">table</span>(pd$coll_grad_level)</code></pre></div>
+<pre><code>## 
+##  (3.7,13.5] (13.5,17.2] (17.2,22.9] (22.9,71.2] 
+##         778         772         767         770</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pd&lt;-pd%&gt;%<span class="kw">group_by</span>(coll_grad_level)%&gt;%<span class="st"> </span>## Group by predictor
+<span class="st">  </span>##Calculate mean at each level of predictor
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pred_income_college=</span><span class="kw">mean</span>(percapinc<span class="fl">.2010</span>))%&gt;%<span class="st"> </span>
+<span class="st">  </span>## Ungroup
+<span class="st">  </span><span class="kw">ungroup</span>()%&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="co">#Rank by prediction, with ties sorted randomly</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pred_income_college_rank=</span><span class="kw">rank</span>(pred_income_college,<span class="dt">ties.method=</span><span class="st">&quot;random&quot;</span>))%&gt;%
+<span class="st">  </span><span class="co">#Calulcate error</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">e2=</span>percapinc<span class="fl">.2010</span>-pred_income_college) 
+
+gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>pd,<span class="kw">aes</span>(<span class="dt">x=</span>pred_income_college_rank,<span class="dt">y=</span>percapinc<span class="fl">.2010</span>,<span class="dt">color=</span><span class="st">&quot;Actual&quot;</span>))
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>,<span class="dt">size=</span>.<span class="dv">5</span>)
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>pred_income_college_rank,<span class="dt">y=</span>pred_income_college,<span class="dt">color=</span><span class="st">&quot;Predicted:Conditional Mean, 1 var&quot;</span>))
+gg&lt;-gg+<span class="st"> </span><span class="kw">scale_color_manual</span>(<span class="st">&quot;Type&quot;</span>,<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Predicted:Conditional Mean, 1 var&quot;</span>=<span class="st">&quot;red&quot;</span>,<span class="st">&quot;Actual&quot;</span>=<span class="st">&quot;black&quot;</span>))
+gg&lt;-gg+<span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)
+gg&lt;-gg+<span class="kw">xlab</span>(<span class="st">&quot;Rank&quot;</span>)+<span class="kw">ylab</span>(<span class="st">&quot;Per Capita Income, 2010&quot;</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/condtl_mean_single-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Save for later
+gg3&lt;-gg</code></pre></div>
+<p><em>Quick Exercise: Calculate per capita income as a function of the proportion of the county with a high school education</em></p>
+<p>Let’s see what happened to our RMSE when we did a conditional as opposed to an unconditional mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse2&lt;-<span class="kw">rmse</span>(pd$e2)
+rmse2</code></pre></div>
+<pre><code>## [1] 6419.405</code></pre>
+</div>
+<div id="conditional-means-with-multiple-predictors" class="section level2">
+<h2><span class="header-section-number">3.5</span> Conditional Means with Multiple Predictors</h2>
+<p>The next step is to then incorporate more information from additional variables. Let’s calculate the average income by both quartiles of both the population with a bachelor’s degree and median home values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Condtional average across multiple variables
+
+## Calculate quartiles of home value
+pd&lt;-pd%&gt;%<span class="kw">mutate</span>(<span class="dt">median_home_level=</span><span class="kw">cut</span>(median_home_val,
+                                    <span class="dt">breaks=</span><span class="kw">quantile</span>(median_home_val,
+                                                    <span class="dt">probs=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>myprob
+                                                    )
+                                    )
+))
+
+<span class="kw">table</span>(pd$median_home_level)</code></pre></div>
+<pre><code>## 
+## (1.94e+04,8.24e+04] (8.24e+04,1.07e+05] (1.07e+05,1.54e+05] 
+##                 772                 772                 771 
+## (1.54e+05,9.44e+05] 
+##                 772</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Make prediction: income by quartiles of education and home values
+
+pd&lt;-pd%&gt;%<span class="kw">group_by</span>(coll_grad_level,median_home_level)%&gt;%<span class="st"> </span>## Grouping at multiple levels
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pred_income_college_home=</span><span class="kw">mean</span>(percapinc<span class="fl">.2010</span>))%&gt;%<span class="kw">ungroup</span>()%&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pred_income_college_home_rank=</span><span class="kw">rank</span>(pred_income_college_home,
+                                            <span class="dt">ties.method=</span><span class="st">&quot;random&quot;</span>))%&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">e3=</span>percapinc<span class="fl">.2010</span>-pred_income_college_home)
+
+## Showing the various levels
+<span class="kw">quantile</span>(<span class="dt">x=</span>pd$pred_income_college_home,<span class="dt">probs=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>myprob))</code></pre></div>
+<pre><code>##       0%      25%      50%      75%     100% 
+## 21290.00 29725.54 33376.52 36923.41 42015.80</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>pd,<span class="kw">aes</span>(<span class="dt">x=</span>pred_income_college_home_rank,<span class="dt">y=</span>percapinc<span class="fl">.2010</span>,<span class="dt">color=</span><span class="st">&quot;Actual&quot;</span>))
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>,<span class="dt">size=</span>.<span class="dv">5</span>)
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>pred_income_college_home_rank,
+                      <span class="dt">y=</span>pred_income_college_home,
+                      <span class="dt">color=</span><span class="st">&quot;Predicted:Conditional Mean, 2 vars&quot;</span>)
+)
+
+gg&lt;-gg+<span class="kw">scale_color_manual</span>(<span class="st">&quot;Type&quot;</span>,<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;Actual&quot;</span>=<span class="st">&quot;black&quot;</span>,
+                                  <span class="st">&quot;Predicted:Conditional Mean, 2 vars&quot;</span>=<span class="st">&quot;orange&quot;</span>
+))
+
+gg&lt;-gg+<span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)
+gg&lt;-gg+<span class="kw">xlab</span>(<span class="st">&quot;Rank&quot;</span>)+<span class="kw">ylab</span>(<span class="st">&quot;Per Capita Income&quot;</span>)
+
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/condtl_mean_multiple-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Save for later
+
+gg4&lt;-gg</code></pre></div>
+<p>This is clearly much better: our predictions appear to be much closer to the actual data points more of the time.</p>
+<p>And what happened to RMSE?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rmse3&lt;-<span class="kw">rmse</span>(pd$e3)
+rmse3</code></pre></div>
+<pre><code>## [1] 6240.328</code></pre>
+</div>
+<div id="final-comparison" class="section level2">
+<h2><span class="header-section-number">3.6</span> Final Comparison</h2>
+<p>Let’s put all of the plots together to compare.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg5&lt;-<span class="kw">grid.arrange</span>(gg1,gg2,gg3,gg4,<span class="dt">nrow=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="data_step_files/figure-html/grid_combine-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg5</code></pre></div>
+<pre><code>## TableGrob (2 x 2) &quot;arrange&quot;: 4 grobs
+##   z     cells    name           grob
+## 1 1 (1-1,1-1) arrange gtable[layout]
+## 2 2 (1-1,2-2) arrange gtable[layout]
+## 3 3 (2-2,1-1) arrange gtable[layout]
+## 4 4 (2-2,2-2) arrange gtable[layout]</code></pre>
+<p><em>Quick Exercise: Predict income using two other variables</em></p>
+</div>
+<div id="applications-of-the-conditional-mean" class="section level2">
+<h2><span class="header-section-number">3.7</span> Applications of the Conditional Mean</h2>
+<p>When might we use the conditional mean?</p>
+<ul>
+<li>Caluclating average sales for a retail location by day of the week and month</li>
+<li>Calculating yield rate (proportion of admitted students who attend) by geographic region and income level for a college.</li>
+<li>Calculating average employee turnover by level of education and gender</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
