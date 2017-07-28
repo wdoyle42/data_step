@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Science in Education: A Step-by-Step Guide</title>
+  <meta name="description" content="Doing data science: a step-by-step guide">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Science in Education: A Step-by-Step Guide" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Doing data science: a step-by-step guide" />
+  <meta name="github-repo" content="wdoyle42/data_step" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Science in Education: A Step-by-Step Guide" />
+  
+  <meta name="twitter:description" content="Doing data science: a step-by-step guide" />
+  
+
+<meta name="author" content="Will Doyle">
+
+
+<meta name="date" content="2017-07-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="analyzing-data-part-1-conditional-means.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#getting-data-topics"><i class="fa fa-check"></i><b>1.1</b> Getting Data Topics</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#analyzing-data-topics"><i class="fa fa-check"></i><b>1.2</b> Analyzing Data Topics</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#presenting-data-analysis-topics"><i class="fa fa-check"></i><b>1.3</b> Presenting Data Analysis Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Welcome to Data Science!</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introductions"><i class="fa fa-check"></i><b>2.1</b> Introductions</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#installing-r"><i class="fa fa-check"></i><b>2.2</b> Installing R</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#installing-rstudio"><i class="fa fa-check"></i><b>2.3</b> Installing Rstudio</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#installing-git"><i class="fa fa-check"></i><b>2.4</b> Installing git</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#getting-set-up-on-github"><i class="fa fa-check"></i><b>2.5</b> Getting set up on GitHub</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#initializing-repos"><i class="fa fa-check"></i><b>2.6</b> Initializing repos</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#cloning-down-your-repo"><i class="fa fa-check"></i><b>2.7</b> Cloning down your repo</a></li>
+<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#yes-we-code-running-r-code"><i class="fa fa-check"></i><b>2.8</b> Yes We Code! Running R Code</a></li>
+<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#your-first-commit-hello_world.rmd"><i class="fa fa-check"></i><b>2.9</b> Your first commit: hello_world.Rmd</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html"><i class="fa fa-check"></i><b>3</b> Analyzing Data, Part 1: Conditional Means</a><ul>
+<li class="chapter" data-level="3.1" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#dataset-for-this-week"><i class="fa fa-check"></i><b>3.1</b> Dataset for this week</a></li>
+<li class="chapter" data-level="3.2" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#dependent-variable"><i class="fa fa-check"></i><b>3.2</b> Dependent Variable</a></li>
+<li class="chapter" data-level="3.3" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#unconditional-means"><i class="fa fa-check"></i><b>3.3</b> Unconditional Means</a></li>
+<li class="chapter" data-level="3.4" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#conditional-means-with-one-predictor-variable"><i class="fa fa-check"></i><b>3.4</b> Conditional Means With One Predictor Variable</a></li>
+<li class="chapter" data-level="3.5" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#conditional-means-with-multiple-predictors"><i class="fa fa-check"></i><b>3.5</b> Conditional Means with Multiple Predictors</a></li>
+<li class="chapter" data-level="3.6" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#final-comparison"><i class="fa fa-check"></i><b>3.6</b> Final Comparison</a></li>
+<li class="chapter" data-level="3.7" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#applications-of-the-conditional-mean"><i class="fa fa-check"></i><b>3.7</b> Applications of the Conditional Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plot-means.html"><a href="plot-means.html"><i class="fa fa-check"></i><b>4</b> Presenting Data 1: Plotting Conditional Means</a><ul>
+<li class="chapter" data-level="4.1" data-path="plot-means.html"><a href="plot-means.html#setup-for-plotting-conditional-means"><i class="fa fa-check"></i><b>4.1</b> Setup for plotting conditional means</a></li>
+<li class="chapter" data-level="4.2" data-path="plot-means.html"><a href="plot-means.html#loading-data"><i class="fa fa-check"></i><b>4.2</b> Loading Data</a></li>
+<li class="chapter" data-level="4.3" data-path="plot-means.html"><a href="plot-means.html#conditional-means-using-two-predictors"><i class="fa fa-check"></i><b>4.3</b> Conditional means using two predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="plot-means.html"><a href="plot-means.html#multiple-predictors-for-conditional-means"><i class="fa fa-check"></i><b>4.4</b> Multiple Predictors for Conditional Means</a></li>
+<li class="chapter" data-level="4.5" data-path="plot-means.html"><a href="plot-means.html#univariate-graphics"><i class="fa fa-check"></i><b>4.5</b> Univariate Graphics</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science in Education: A Step-by-Step Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plot_means" class="section level1">
+<h1><span class="header-section-number">4</span> Presenting Data 1: Plotting Conditional Means</h1>
+<p>The idea when plotting conditional means is to show how the outcome, or variable of interest, varies as a function of predictors.</p>
+<p>Today we’ll be working with a dataset from IBM which provide a standard HR dataset, which we can use to predict attrition. Attrition in this case is defined as an employee leaving without being fired or retiring. Companies generally attempt to avoid attrition, as it’s very expensive to search for and hire a replacement– better in general to keep the employees you have, provided they are doing their jobs. This means that it’s important to predict who might leave in a given year. This information can be used in a targeted way in order to focus resources on the employees most likely to leave.</p>
+<div id="setup-for-plotting-conditional-means" class="section level2">
+<h2><span class="header-section-number">4.1</span> Setup for plotting conditional means</h2>
+<p>We start with a standard set of setup commands. Today we’ll be working with <code>dplyr</code>, <code>ggplot</code> plus <code>readr</code> and <code>forcats</code>.</p>
+<p>Next we load in the data, using the <code>readr</code> package. Note that this data is saved as comma separated or <code>csv.</code> This is an easy file format to recognize. When we use the <code>readr</code> package, it gives us some output that says how it interprets the data– is it a string variable, numeric (float), integer and so on.</p>
+</div>
+<div id="loading-data" class="section level2">
+<h2><span class="header-section-number">4.2</span> Loading Data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at&lt;-<span class="kw">read_csv</span>(<span class="st">&quot;https://community.watsonanalytics.com/wp-content/uploads/2015/03/WA_Fn-UseC_-HR-Employee-Attrition.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   .default = col_integer(),
+##   Attrition = col_character(),
+##   BusinessTravel = col_character(),
+##   Department = col_character(),
+##   EducationField = col_character(),
+##   Gender = col_character(),
+##   JobRole = col_character(),
+##   MaritalStatus = col_character(),
+##   Over18 = col_character(),
+##   OverTime = col_character()
+## )</code></pre>
+<pre><code>## See spec(...) for full column specifications.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Save for later
+<span class="kw">save</span>(at,<span class="dt">file=</span><span class="st">&quot;at.Rdata&quot;</span>)
+
+## load(&quot;at.Rdata&quot;)</code></pre></div>
+<p>Today, our primary outcome of interest will be attrition. This is a binary variable that is currently encoded as text– “Yes” or “No.” We need to encode it as a binary variable with 1 meaning yes and 0 meaning no. After recoding, we need to make sure that the new variable looks correct.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Crate a new variable named attrit and define it as 0
+at$attrit&lt;-<span class="dv">0</span>
+at$attrit[at$Attrition==<span class="st">&quot;Yes&quot;</span>]&lt;-<span class="dv">1</span>
+
+<span class="kw">table</span>(at$Attrition)</code></pre></div>
+<pre><code>## 
+##   No  Yes 
+## 1233  237</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(at$attrit)</code></pre></div>
+<pre><code>## 
+##    0    1 
+## 1233  237</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(at$attrit,at$Attrition)</code></pre></div>
+<pre><code>##    
+##       No  Yes
+##   0 1233    0
+##   1    0  237</code></pre>
+<p>Our first prediction will use business travel as a predictor for attrition. There are three categories here– non travel, travel infrequently, and frequent travel. We’ll calculate levels of attrtion at teach level and then take a look at the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##      BusinessTravel  attr_avg
+##               &lt;chr&gt;     &lt;dbl&gt;
+## 1        Non-Travel 0.0800000
+## 2 Travel_Frequently 0.2490975
+## 3     Travel_Rarely 0.1495686</code></pre>
+<p>Remember that the mean of a binary variable indicates the proportion of the population that has a certain characteristcs. So, in our case, 0.2490975 of the sample that travels frequently left the compoany in the last year. Our first plot will be a basic bar plot, showing the average levels of attrition.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Bar Plot with aesthentics: mean attrition as height, business travel as cateogry
+gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span>BusinessTravel,<span class="dt">y=</span>attr_avg))
+## Use bar plot geometry, height of bars set by level observed in dataset
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;Identity&quot;</span>)
+## Print
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>This is fine, but it should really be in the order of the underlying variable. We can use <code>fct_reorder</code> to do this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Same asethetics, but now orderred by level
+gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fct_reorder</span>(BusinessTravel,attr_avg),<span class="dt">y=</span>attr_avg))
+
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)
+##Print
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(Department)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##               Department  attr_avg
+##                    &lt;chr&gt;     &lt;dbl&gt;
+## 1        Human Resources 0.1904762
+## 2 Research &amp; Development 0.1383975
+## 3                  Sales 0.2062780</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fct_reorder</span>(Department,attr_avg),<span class="dt">y=</span>attr_avg))
+
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)
+##Print
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><em>Quick Exercise: Create a bar plot showing average attrition by department instead of travel</em></p>
+<p>A dot plot can be a good way of displaying conditional means as well. Many times dot plots are more easily understood if they are horizontal, so we’ll use <code>coord_flip</code> to make it horizontal.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##      BusinessTravel  attr_avg
+##               &lt;chr&gt;     &lt;dbl&gt;
+## 1        Non-Travel 0.0800000
+## 2 Travel_Frequently 0.2490975
+## 3     Travel_Rarely 0.1495686</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Now a dot plot
+gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(BusinessTravel,attr_avg),<span class="dt">y=</span>attr_avg))
+gg&lt;-gg+<span class="kw">geom_point</span>()
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><em>Quick Exercise: Create a dot plot showing average attrition by department</em></p>
+</div>
+<div id="conditional-means-using-two-predictors" class="section level2">
+<h2><span class="header-section-number">4.3</span> Conditional means using two predictors</h2>
+<p>We can use graphics to display conditonal means at multiple levels of predictor levels. There are a couple of ways to get this done. When using bar plots we’ve got two basic tools: location and color. In the first example, we’re going to plot attrition by travel and gender, We’ll use color to indicate gender, and location to indicate travel.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel,Gender)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## Source: local data frame [6 x 3]
+## Groups: BusinessTravel [?]
+## 
+##      BusinessTravel Gender   attr_avg
+##               &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+## 1        Non-Travel Female 0.06122449
+## 2        Non-Travel   Male 0.08910891
+## 3 Travel_Frequently Female 0.25641026
+## 4 Travel_Frequently   Male 0.24375000
+## 5     Travel_Rarely Female 0.12796209
+## 6     Travel_Rarely   Male 0.16425121</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(BusinessTravel,attr_avg),<span class="dt">y=</span>attr_avg,<span class="dt">color=</span>Gender))
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="kw">aes</span>(<span class="dt">fill=</span>Gender),<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(BusinessTravel,attr_avg),<span class="dt">y=</span>attr_avg),<span class="dt">color=</span>Gender)
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Gender))
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(Department,EducationField)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## Source: local data frame [14 x 3]
+## Groups: Department [?]
+## 
+##                Department   EducationField  attr_avg
+##                     &lt;chr&gt;            &lt;chr&gt;     &lt;dbl&gt;
+## 1         Human Resources  Human Resources 0.2592593
+## 2         Human Resources    Life Sciences 0.0625000
+## 3         Human Resources          Medical 0.1538462
+## 4         Human Resources            Other 0.0000000
+## 5         Human Resources Technical Degree 0.5000000
+## 6  Research &amp; Development    Life Sciences 0.1340909
+## 7  Research &amp; Development          Medical 0.1294766
+## 8  Research &amp; Development            Other 0.1093750
+## 9  Research &amp; Development Technical Degree 0.2127660
+## 10                  Sales    Life Sciences 0.1933333
+## 11                  Sales        Marketing 0.2201258
+## 12                  Sales          Medical 0.1590909
+## 13                  Sales            Other 0.2666667
+## 14                  Sales Technical Degree 0.2941176</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(EducationField,attr_avg),<span class="dt">y=</span>attr_avg,<span class="dt">color=</span>Department))
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="kw">aes</span>(<span class="dt">fill=</span>Department), <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<p><em>Quick Exercise: Create either a bar plot or a dot plot showing attrition by department AND field of education</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel,Gender,MaritalStatus)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## Source: local data frame [18 x 4]
+## Groups: BusinessTravel, Gender [?]
+## 
+##       BusinessTravel Gender MaritalStatus   attr_avg
+##                &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;
+## 1         Non-Travel Female      Divorced 0.00000000
+## 2         Non-Travel Female       Married 0.00000000
+## 3         Non-Travel Female        Single 0.20000000
+## 4         Non-Travel   Male      Divorced 0.03030303
+## 5         Non-Travel   Male       Married 0.08333333
+## 6         Non-Travel   Male        Single 0.15625000
+## 7  Travel_Frequently Female      Divorced 0.20833333
+## 8  Travel_Frequently Female       Married 0.13636364
+## 9  Travel_Frequently Female        Single 0.38775510
+## 10 Travel_Frequently   Male      Divorced 0.20512821
+## 11 Travel_Frequently   Male       Married 0.17567568
+## 12 Travel_Frequently   Male        Single 0.38297872
+## 13     Travel_Rarely Female      Divorced 0.04878049
+## 14     Travel_Rarely Female       Married 0.12195122
+## 15     Travel_Rarely Female        Single 0.18518519
+## 16     Travel_Rarely   Male      Divorced 0.10869565
+## 17     Travel_Rarely   Male       Married 0.12714777
+## 18     Travel_Rarely   Male        Single 0.26041667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(BusinessTravel,attr_avg),
+                      <span class="dt">y=</span>attr_avg,
+                      <span class="dt">color=</span>Gender))
+## Bar plot, with unstacked (dodge)
+ gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>Gender),<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>)
+## Separate out by Marital Status 
+gg&lt;-gg+<span class="kw">facet_wrap</span>(~MaritalStatus)
+## Change orientation to sideways
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+## Print
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(BusinessTravel,attr_avg),
+                      <span class="dt">y=</span>attr_avg))
+
+gg&lt;-gg+<span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>MaritalStatus,<span class="dt">shape=</span>Gender))
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(EducationField,Gender,Department)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))
+
+at_sum</code></pre></div>
+<pre><code>## Source: local data frame [27 x 4]
+## Groups: EducationField, Gender [?]
+## 
+##     EducationField Gender             Department  attr_avg
+##              &lt;chr&gt;  &lt;chr&gt;                  &lt;chr&gt;     &lt;dbl&gt;
+## 1  Human Resources Female        Human Resources 0.3750000
+## 2  Human Resources   Male        Human Resources 0.2105263
+## 3    Life Sciences Female        Human Resources 0.1111111
+## 4    Life Sciences Female Research &amp; Development 0.1445783
+## 5    Life Sciences Female                  Sales 0.2000000
+## 6    Life Sciences   Male        Human Resources 0.0000000
+## 7    Life Sciences   Male Research &amp; Development 0.1277372
+## 8    Life Sciences   Male                  Sales 0.1882353
+## 9        Marketing Female                  Sales 0.2173913
+## 10       Marketing   Male                  Sales 0.2222222
+## # ... with 17 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(Department,attr_avg),
+                      <span class="dt">y=</span>attr_avg,
+                      <span class="dt">color=</span>Gender))
+
+## Bar plot, with unstacked (dodge)
+ gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>Gender),<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)
+## Separate out by Marital Status 
+gg&lt;-gg+<span class="kw">facet_wrap</span>(~EducationField)
+## Change orientation to sideways
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+## Changing Colors
+
+mypal&lt;-<span class="kw">c</span>(<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;darkgoldenrod&quot;</span>)
+
+gg&lt;-gg+<span class="kw">scale_fill_manual</span>(<span class="dt">values =</span>mypal )
+## Print
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Another way
+
+gg&lt;-gg+<span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>)</code></pre></div>
+<pre><code>## Scale for &#39;fill&#39; is already present. Adding another scale for &#39;fill&#39;,
+## which will replace the existing scale.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+<p><em>Quick Exercise: Plot predicted attrition by Education Field, Department and Gender</em></p>
+</div>
+<div id="multiple-predictors-for-conditional-means" class="section level2">
+<h2><span class="header-section-number">4.4</span> Multiple Predictors for Conditional Means</h2>
+<p>Once you get past three variables, things can get difficult. One solution is to create a new factor with one level for every single level of the predictor variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##This gets a little nutty
+at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel,Gender,MaritalStatus,WorkLifeBalance)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))%&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>()%&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(attr_avg)
+
+at_sum</code></pre></div>
+<pre><code>## # A tibble: 70 × 5
+##    BusinessTravel Gender MaritalStatus WorkLifeBalance attr_avg
+##             &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt;    &lt;dbl&gt;
+## 1      Non-Travel Female      Divorced               2        0
+## 2      Non-Travel Female      Divorced               3        0
+## 3      Non-Travel Female      Divorced               4        0
+## 4      Non-Travel Female       Married               1        0
+## 5      Non-Travel Female       Married               2        0
+## 6      Non-Travel Female       Married               3        0
+## 7      Non-Travel Female       Married               4        0
+## 8      Non-Travel Female        Single               1        0
+## 9      Non-Travel Female        Single               3        0
+## 10     Non-Travel   Male      Divorced               2        0
+## # ... with 60 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## One Solution
+
+at_sum$grouping&lt;-<span class="kw">paste0</span>(at_sum$BusinessTravel,
+                       <span class="st">&quot;, &quot;</span>,
+                       at_sum$Gender,
+                       <span class="st">&quot;, &quot;</span>,
+                       at_sum$MaritalStatus,
+                       <span class="st">&quot;, Work/Life:&quot;</span>,
+                       at_sum$WorkLifeBalance)
+
+at_sum$grouping&lt;-<span class="kw">as.factor</span>(at_sum$grouping)
+
+at_sum%&gt;%<span class="kw">select</span>(grouping,attr_avg)</code></pre></div>
+<pre><code>## # A tibble: 70 × 2
+##                                     grouping attr_avg
+##                                       &lt;fctr&gt;    &lt;dbl&gt;
+## 1  Non-Travel, Female, Divorced, Work/Life:2        0
+## 2  Non-Travel, Female, Divorced, Work/Life:3        0
+## 3  Non-Travel, Female, Divorced, Work/Life:4        0
+## 4   Non-Travel, Female, Married, Work/Life:1        0
+## 5   Non-Travel, Female, Married, Work/Life:2        0
+## 6   Non-Travel, Female, Married, Work/Life:3        0
+## 7   Non-Travel, Female, Married, Work/Life:4        0
+## 8    Non-Travel, Female, Single, Work/Life:1        0
+## 9    Non-Travel, Female, Single, Work/Life:3        0
+## 10   Non-Travel, Male, Divorced, Work/Life:2        0
+## # ... with 60 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">at_sum&lt;-at_sum%&gt;%<span class="kw">filter</span>(attr_avg&gt;.<span class="dv">01</span>)
+
+gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fct_reorder</span>(grouping,attr_avg),<span class="dt">y=</span>attr_avg))
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="kw">aes</span>(<span class="dt">fill=</span>MaritalStatus))
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Cleaning up a bit
+
+gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fct_reorder</span>(grouping,attr_avg),<span class="dt">y=</span>attr_avg))
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="kw">aes</span>(<span class="dt">fill=</span>MaritalStatus))
+gg&lt;-gg+<span class="kw">ylab</span>(<span class="st">&quot;Proportion of Employees Who Departed&quot;</span>)+<span class="kw">xlab</span>(<span class="st">&quot;Category&quot;</span>)
+gg&lt;-gg+<span class="kw">coord_flip</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<p>The other solution is to use facets, or lots of little graphs, which show how the pattern varies across different groups. In this case, our groups will be defined by gender and work/life balance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Using Facets
+
+at_sum&lt;-at%&gt;%
+<span class="st">  </span><span class="kw">group_by</span>(BusinessTravel,Gender,MaritalStatus,WorkLifeBalance)%&gt;%
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">attr_avg=</span><span class="kw">mean</span>(attrit))%&gt;%
+<span class="st">  </span><span class="kw">ungroup</span>()%&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(attr_avg)
+
+at_sum</code></pre></div>
+<pre><code>## # A tibble: 70 × 5
+##    BusinessTravel Gender MaritalStatus WorkLifeBalance attr_avg
+##             &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt;    &lt;dbl&gt;
+## 1      Non-Travel Female      Divorced               2        0
+## 2      Non-Travel Female      Divorced               3        0
+## 3      Non-Travel Female      Divorced               4        0
+## 4      Non-Travel Female       Married               1        0
+## 5      Non-Travel Female       Married               2        0
+## 6      Non-Travel Female       Married               3        0
+## 7      Non-Travel Female       Married               4        0
+## 8      Non-Travel Female        Single               1        0
+## 9      Non-Travel Female        Single               3        0
+## 10     Non-Travel   Male      Divorced               2        0
+## # ... with 60 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at_sum,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">fct_reorder</span>(BusinessTravel,attr_avg),<span class="dt">y=</span>attr_avg))
+gg&lt;-gg+<span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>,<span class="kw">aes</span>(<span class="dt">fill=</span>MaritalStatus),<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>)
+gg&lt;-gg+<span class="kw">facet_wrap</span>(~Gender+WorkLifeBalance,<span class="dt">ncol=</span><span class="dv">4</span>)
+
+
+gg&lt;-gg+<span class="kw">ylab</span>(<span class="st">&quot;Proportion of Employees Who Departed&quot;</span>)+<span class="kw">xlab</span>(<span class="st">&quot;Category&quot;</span>)
+gg&lt;-gg+<span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">60</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))
+gg&lt;-gg+<span class="kw">ggtitle</span>(<span class="st">&quot;Departure by Gender and Level of Work/Life Satisfaction&quot;</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><em>Sort of Quick Exercise: Try and Replicate one of the above plots using performance review, department, education field and overtime. </em></p>
+</div>
+<div id="univariate-graphics" class="section level2">
+<h2><span class="header-section-number">4.5</span> Univariate Graphics</h2>
+<p>Here’s a quick rundown on some univariate graphics. Say we wanted a quick count of who was in each department. We can use geom_bar to get this done. By default, this will give us a count in each department.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at,<span class="kw">aes</span>(<span class="dt">x=</span>Department,<span class="dt">fill=</span>Department))
+gg&lt;-gg+<span class="kw">geom_bar</span>()
+mypal&lt;-<span class="kw">c</span>(<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;yellow3&quot;</span>,<span class="st">&quot;darkorchid1&quot;</span>)
+gg&lt;-gg+<span class="kw">scale_fill_manual</span>(<span class="dt">values=</span>mypal)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>The next univariate graphic you should know is for continuous variables. The first thing you generally want is a histogram.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at,<span class="kw">aes</span>(<span class="dt">x=</span>DistanceFromHome))
+gg&lt;-gg+<span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>,<span class="dt">fill=</span><span class="st">&quot;lightblue&quot;</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-18-1.png" width="672" /> Density plots provide a continous graphic of the distribution of a variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(at,<span class="kw">aes</span>(<span class="dt">x=</span>DistanceFromHome))
+gg&lt;-gg+<span class="kw">geom_density</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-gg+<span class="kw">geom_density</span>(<span class="dt">bw=</span>.<span class="dv">2</span>)
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analyzing-data-part-1-conditional-means.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
