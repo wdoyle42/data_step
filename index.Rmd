@@ -1,0 +1,17 @@
+--- 
+title: "Data Science in Education: A  Step-by-Step Guide"
+author: "Will Doyle"
+date: "`r Sys.Date()`"
+#site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: wdoyle42/data_step
+description: "Doing data science: a step-by-step guide"
+---
+
+# A few notes before we get started
+
+

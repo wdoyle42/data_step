@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Science in Education: A Step-by-Step Guide</title>
+  <meta name="description" content="Doing data science: a step-by-step guide">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Science in Education: A Step-by-Step Guide" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Doing data science: a step-by-step guide" />
+  <meta name="github-repo" content="wdoyle42/data_step" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Science in Education: A Step-by-Step Guide" />
+  
+  <meta name="twitter:description" content="Doing data science: a step-by-step guide" />
+  
+
+<meta name="author" content="Will Doyle">
+
+
+<meta name="date" content="2017-07-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> A few notes before we get started</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Welcome to Data Science!</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introductions"><i class="fa fa-check"></i><b>2.1</b> Introductions</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#installing-r"><i class="fa fa-check"></i><b>2.2</b> Installing R</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#installing-rstudio"><i class="fa fa-check"></i><b>2.3</b> Installing Rstudio</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#installing-git"><i class="fa fa-check"></i><b>2.4</b> Installing git</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#getting-set-up-on-github"><i class="fa fa-check"></i><b>2.5</b> Getting set up on GitHub</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#initializing-repos"><i class="fa fa-check"></i><b>2.6</b> Initializing repos</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#cloning-down-your-repo"><i class="fa fa-check"></i><b>2.7</b> Cloning down your repo</a></li>
+<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#yes-we-code-running-r-code"><i class="fa fa-check"></i><b>2.8</b> Yes We Code! Running R Code</a></li>
+<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#your-first-commit-hello_world.rmd"><i class="fa fa-check"></i><b>2.9</b> Your first commit: hello_world.Rmd</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science in Education: A Step-by-Step Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">2</span> Welcome to Data Science!</h1>
+<p>Today, we’ll be working on getting you set up with the tools you will need for this class. Once you are set up, we’ll do what we’re here to do: analyze data!</p>
+<p>Here’s what we need to get done today:</p>
+<ol style="list-style-type: decimal">
+<li>Introductions<br />
+</li>
+<li>Installing R</li>
+<li>Installing Rstudio</li>
+<li>Installing git</li>
+<li>Getting set up on GitHub</li>
+<li>Initializing everyone’s github repos</li>
+<li>hello_world.Rmd</li>
+</ol>
+<div id="introductions" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introductions</h2>
+</div>
+<div id="installing-r" class="section level2">
+<h2><span class="header-section-number">2.2</span> Installing R</h2>
+<p>R is going to be the only programming language we will use. R is an extensible statistical programming environment that can handle all of the main tasks that we’ll need to cover this semester: getting data, analyzing data and communicating data analysis.</p>
+<p>If you haven’t already, you need to download R here: <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>.</p>
+</div>
+<div id="installing-rstudio" class="section level2">
+<h2><span class="header-section-number">2.3</span> Installing Rstudio</h2>
+<p>When we work with R, we communicate via the command line. To help automate this process, we can write scripts, which contain all of the commands to be executed. These scripts generate various kinds of output, like numbers on the screen, graphics or reports in common formats (pdf, word). Most programming languages have several _I_ntegrated _D_evelopment _E_nvironments (IDEs) that encompass all of these elements (scripts, command line interface, output). The primary IDE for R is Rstudio.</p>
+<p>If you haven’t already, you need to download Rstudio here: <a href="https://www.rstudio.com/products/rstudio/download2/" class="uri">https://www.rstudio.com/products/rstudio/download2/</a>. You need the free Rstudio desktop version.</p>
+</div>
+<div id="installing-git" class="section level2">
+<h2><span class="header-section-number">2.4</span> Installing git</h2>
+<p>git is a version control program. A standard problem in programming is how to track the changes that have been made to a project. These challenges are well-known to anyone who has had to work on a complex document, particularly with collaborators. Because these problems are particularly severe in programming, they developed a set of tools called version control. These will keep track of every change you make to a file, and record why you made the change.</p>
+<p>If you haven’t already, you need to download git <a href="http://git-scm.com/downloads">here</a>.</p>
+<p>Once you download and install git, you need to introduce yourself to git. Open up a terminal (type in “terminal” in spotlight search in Mac OS X, hit Windows-R and then type in “cmd” in windows) and enter the following two commands:</p>
+<pre><code>git config --global user.name &quot;YOUR FULL NAME&quot;
+git config --global user.email &quot;YOUR EMAIL ADDRESS&quot;</code></pre>
+<p>Make sure the email address is the same one you use to sign up for GitHub below.</p>
+<p>If you’re having trouble installing git, there are a couple of other options.</p>
+<ol style="list-style-type: decimal">
+<li><p>If you’re on a Mac, you can install <a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12">XCode</a>. Git comes bundled with this, and should install cleanly. <em>N.B.: this is a BIG file and install</em></p></li>
+<li><p>Install Github Desktop, available here:<a href="https://desktop.github.com/" class="uri">https://desktop.github.com/</a>.</p></li>
+</ol>
+<p>With either, make sure you register your username and email.</p>
+<p>Again on a Mac, if you’re having issues with the git path, you may need to do a couple of things. First, go to the terminal and type in</p>
+<pre><code>which git</code></pre>
+<p>This will give you the path to your git executable.</p>
+<p>Then, in Rstudio, click “browse” to get to the executable. To be able to find all hidden files, click COMMAND+SHIFT+Period. If it’s located somewhere like <code>/user/local/git/bin/git</code> you’ll need to do something like this.</p>
+<p>You may also want to change the Path, by typing in the following at the terminal:</p>
+<pre><code>export PATH=&quot;$PATH:&lt;path_to_git&gt;&quot;&quot;</code></pre>
+<p><em>N.B. in this class, and generally in programming, when you see</em> <code>&lt;text&gt;</code> <em>that means that you need to substitute something in.</em></p>
+</div>
+<div id="getting-set-up-on-github" class="section level2">
+<h2><span class="header-section-number">2.5</span> Getting set up on GitHub</h2>
+<p>GitHub is online hosting service that is widely used by programmers. It allows you to easily share your work with the world. It is integrated with git, so version control is easy to do.</p>
+</div>
+<div id="initializing-repos" class="section level2">
+<h2><span class="header-section-number">2.6</span> Initializing repos</h2>
+<p>Everyone in the class will need a repository (repo from now on) on our GitHub organization. All I need from you is your username on GitHub, then I can add your repo to our organization.</p>
+<p>To integrate Rstudio with GitHub, you need to enable git as your version control within Rstudio.</p>
+<p>Instructions are <a href="https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN">here</a>.</p>
+</div>
+<div id="cloning-down-your-repo" class="section level2">
+<h2><span class="header-section-number">2.7</span> Cloning down your repo</h2>
+<p>First in RStudio, you’ll need to generate an SSH key. This will let GitHub know it’s safe to talk to your computer. In RStudio, go to Preferences–&gt; Git/SVN, then click on “Create RSA Key”. Once that’s done, you can click on the blue text that says “View public key.” Copy all of the text in the public key.</p>
+<p>Now go to GitHub and in the upper right hand corner by your avatar, click on Settings. Go to SSH and GPG keys. Click “New SSH Key” and paste in the text you copied from Rstudio. Name the key, and you should be all set.</p>
+<p>From RStudio, you’ll need to click New Project–&gt;Version Control–&gt;GitHub–&gt;Then find your repo, which will be here <code>https://github.com/hoddatascifall16/student_&lt;yourlastname&gt;</code></p>
+<p>Name the project “central”. Choose a good spot on your computer for the project files– wherever you usually keep class directories. This project will be the only place you need to work for this class the entire semester.</p>
+<p>Once you click “create project” all of the files should download and you should have your own version of all of the class files downloaded on your computer.</p>
+<p><em>N.B. in this class, and generally in programming, when you see</em> <code>&lt;text&gt;</code> <em>that means that you need to substitute something in.</em></p>
+</div>
+<div id="yes-we-code-running-r-code" class="section level2">
+<h2><span class="header-section-number">2.8</span> Yes We Code! Running R Code</h2>
+<p>The following code chunk will be our first use of R in this class. We’re going to grab some data that’s part of the <a href="https://collegescorecard.ed.gov/data/documentation/">college scorecard</a> and do a bit of analysis on it.</p>
+<p>When we say that R is extensible, we mean that people in the community can write programs that everyone else can use. These are called “packages.” In these first few lines of code, I load two packages using the library command in R. The two packages, <code>dplyr</code> and <code>ggplot2</code> were written by Hadley Wickham and play a key role in his book.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Clear environment
+<span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
+## Get necessary libraries-- won&#39;t work the first time, because you need to install them!
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<p>Now we’re ready to load in data. The data frame will be our basic way of interacting with everything in this class. The <code>sc</code> data frame contains information from the college scorecard on 127 different colleges and univeristies.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load in the data
+<span class="kw">load</span>(<span class="st">&quot;college.Rdata&quot;</span>)</code></pre></div>
+<p>Here are the variables in the <code>college.Rdata</code> dataset:</p>
+<p><em>Variable Name</em> :<em>Definition</em> unitid: Unit ID</p>
+<p>instnm: Institution Name</p>
+<p>stabbr: State Abbreviation</p>
+<p>year: Year</p>
+<p>control: control of institution, 1=public, 2= private non-profit, 3=private for-profit</p>
+<p>preddeg: predominant degree, 1= certificate, 2= associates, 3= bachelor’s, 4=graduate</p>
+<p>adm_rate: Proportion of Applicants Admitted</p>
+<p>sat_avg: Midpoint of entrance exam scores, on SAT scale, math and verbal only</p>
+<p>costt_4a: Average cost of attendance (tuition and room and board less all grant aid)</p>
+<p>debt_mdn: Median debt of graduates</p>
+<p>md_earn_ne_pg: Earnings of graduates who are not enrolled in higher education, six years after graduation</p>
+<p><em>Looking at datasets</em></p>
+<p>We can look at the first few rows and columns of <code>sc</code> by typing in the data name.</p>
+<p>We can look at the whole dataset using View.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## What does this data look like? Look at the first few rows, first few variables
+sc</code></pre></div>
+<pre><code>## # A tibble: 127 × 9
+##    unitid                                            instnm stabbr  year
+##     &lt;int&gt;                                             &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  446048                              Ave Maria University     FL  2009
+## 2  443410                   DigiPen Institute of Technology     WA  2009
+## 3  441186 San Diego State University-Imperial Valley Campus     CA  2009
+## 4  404338                 Schiller International University     FL  2009
+## 5  169442                      College for Creative Studies     MI  2009
+## 6  168342                                  Williams College     MA  2009
+## 7  167057             The New England Conservatory of Music     MA  2009
+## 8  166027                                Harvard University     MA  2009
+## 9  166683             Massachusetts Institute of Technology     MA  2009
+## 10 168148                                  Tufts University     MA  2009
+## # ... with 117 more rows, and 5 more variables: adm_rate &lt;dbl&gt;,
+## #   sat_avg &lt;dbl&gt;, costt4_a &lt;int&gt;, debt_mdn &lt;dbl&gt;, md_earn_wne_p6 &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#View(sc)</span></code></pre></div>
+<p><em>Filter, Select, Arrange</em></p>
+<p>In exploring data, many times we want to look at smaller parts of the dataset. There are three commands we’ll use today that help with this.</p>
+<p>-<code>filter</code> selects only those cases or rows that meet some logical criteria.</p>
+<p>-<code>select</code> selects only those variables or coloumns that meet some criteria</p>
+<p>-<code>arrange</code> arranges the rows of a dataset in the way we want.</p>
+<p>For more on these, please see this <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">vignette</a>.</p>
+<p>Let’s grab just the data for Vanderbilt, then look only at the average test scores and admit rate.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Where are we?
+sc%&gt;%<span class="kw">filter</span>(instnm==<span class="st">&quot;Vanderbilt University&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 1 × 9
+##   unitid                instnm stabbr  year adm_rate sat_avg costt4_a
+##    &lt;int&gt;                 &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt;
+## 1 221999 Vanderbilt University     TN  2009   0.2015    1430    52303
+## # ... with 2 more variables: debt_mdn &lt;dbl&gt;, md_earn_wne_p6 &lt;int&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc%&gt;%<span class="kw">filter</span>(instnm==<span class="st">&quot;Vanderbilt University&quot;</span>)%&gt;%<span class="kw">select</span>(instnm,adm_rate,sat_avg )</code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##                  instnm adm_rate sat_avg
+##                   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Vanderbilt University   0.2015    1430</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Just colleges with low admit rates: show admit rate and sat scores, arrange in a pleasing way
+sc%&gt;%<span class="kw">filter</span>(adm_rate&lt;.<span class="dv">1</span>)%&gt;%<span class="kw">select</span>(instnm,adm_rate,sat_avg)%&gt;%<span class="kw">arrange</span>(sat_avg,adm_rate)</code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##                                                instnm adm_rate sat_avg
+##                                                 &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Cooper Union for the Advancement of Science and Art   0.0735    1336
+## 2                                 Stanford University   0.0797    1436
+## 3                                  Harvard University   0.0719    1468
+## 4                                     Yale University   0.0856    1475
+## 5  Dell&#39;Arte International School of Physical Theatre   0.0000      NA
+## 6                                The Juilliard School   0.0711      NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Just colleges with low admit rates: order by sat scores (- sat_avg gives descending)
+sc%&gt;%<span class="kw">filter</span>(adm_rate&lt;.<span class="dv">1</span>)%&gt;%<span class="kw">select</span>(instnm,adm_rate,sat_avg)%&gt;%<span class="kw">arrange</span>(-sat_avg)</code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##                                                instnm adm_rate sat_avg
+##                                                 &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1                                     Yale University   0.0856    1475
+## 2                                  Harvard University   0.0719    1468
+## 3                                 Stanford University   0.0797    1436
+## 4 Cooper Union for the Advancement of Science and Art   0.0735    1336
+## 5                                The Juilliard School   0.0711      NA
+## 6  Dell&#39;Arte International School of Physical Theatre   0.0000      NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## New cut
+sc%&gt;%<span class="kw">filter</span>(adm_rate&gt;.<span class="dv">3</span>)%&gt;%<span class="kw">select</span>(instnm,sat_avg,md_earn_wne_p6,stabbr)%&gt;%<span class="kw">arrange</span>(stabbr,-sat_avg)%&gt;%<span class="kw">print</span>(<span class="dt">n=</span><span class="dv">100</span>)</code></pre></div>
+<pre><code>## # A tibble: 72 × 4
+##                                                             instnm sat_avg
+##                                                              &lt;chr&gt;   &lt;dbl&gt;
+## 1                                       Henderson State University    1048
+## 2                             University of Arkansas at Pine Bluff     784
+## 3                               University of Advancing Technology      NA
+## 4                                                  Scripps College    1336
+## 5                               University of California-San Diego    1247
+## 6                                            Pepperdine University    1230
+## 7          California Polytechnic State University-San Luis Obispo    1205
+## 8                                       San Diego State University    1050
+## 9                                    Hope International University     975
+## 10               San Diego State University-Imperial Valley Campus     825
+## 11 The Art Institute of California-Argosy University San Francisco      NA
+## 12                                                Colorado College    1326
+## 13                                             Connecticut College      NA
+## 14                                    George Washington University    1276
+## 15                                       Delaware State University     868
+## 16                                            Ave Maria University    1104
+## 17                                Florida International University    1102
+## 18                                               Brenau University     965
+## 19                                       National Louis University      NA
+## 20                                      Grambling State University     851
+## 21                                             Brandeis University    1367
+## 22                                                  Boston College    1343
+## 23                           The New England Conservatory of Music      NA
+## 24                                         The Boston Conservatory      NA
+## 25                                    College for Creative Studies     970
+## 26                                          Rocky Mountain College    1042
+## 27                     University of North Carolina at Chapel Hill    1305
+## 28                                             Campbell University    1018
+## 29                                                 Shaw University      NA
+## 30                                          Wake Forest University      NA
+## 31           Nebraska Methodist College of Nursing &amp; Allied Health    1030
+## 32                                      New Jersey City University     835
+## 33                                              Colgate University    1357
+## 34                                         University of Rochester    1334
+## 35                                             New York University    1317
+## 36                                         SUNY College at Geneseo    1310
+## 37                                              SUNY at Binghamton    1265
+## 38                                          Stony Brook University    1193
+## 39                                                  Marist College    1161
+## 40                       State University of New York at New Paltz    1115
+## 41                                                    SUNY Oneonta    1098
+## 42                      SUNY Institute of Technology at Utica-Rome    1086
+## 43                                             CUNY Queens College    1060
+## 44                                           CUNY Brooklyn College    1035
+## 45                                               CUNY City College    1015
+## 46                                             CUNY Lehman College     910
+## 47                                                    Bard College      NA
+## 48                                          St Lawrence University      NA
+## 49                                       Manhattan School of Music      NA
+## 50                                                 Oberlin College    1360
+## 51                                       Ohio Christian University     901
+## 52                                        Central State University     759
+## 53                                          Wilberforce University      NA
+## 54                                      Carnegie Mellon University    1392
+## 55                                               Lehigh University    1300
+## 56                              Lincoln University of Pennsylvania     812
+## 57                           University of Puerto Rico-Rio Piedras    1206
+## 58                                      Bayamon Central University      NA
+## 59                                 Universidad del Sagrado Corazon      NA
+## 60                                  Universidad Central Del Caribe      NA
+## 61                Inter American University of Puerto Rico-Bayamon      NA
+## 62                Inter American University of Puerto Rico-Arecibo      NA
+## 63                Inter American University of Puerto Rico-Guayama      NA
+## 64                                   Rhode Island School of Design    1244
+## 65                                              Claflin University     895
+## 66                                       Hardin-Simmons University    1047
+## 67                    South University-The Art Institute of Dallas      NA
+## 68                       Southwestern Assemblies of God University      NA
+## 69                                     College of William and Mary    1339
+## 70                              University of Virginia-Main Campus    1332
+## 71                                          University of Richmond    1261
+## 72                                 DigiPen Institute of Technology    1194
+## # ... with 2 more variables: md_earn_wne_p6 &lt;int&gt;, stabbr &lt;chr&gt;</code></pre>
+<p><em>Quick Exercise</em> Choose a different college and two different things about that college.</p>
+<p><em>Summarizing Data</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## What&#39;s the average median debt?
+sc%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_debt=</span><span class="kw">mean</span>(debt_mdn,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_debt
+##       &lt;dbl&gt;
+## 1  13428.78</code></pre>
+<p><em>Quick Exercise</em> Summarize the average entering SAT scores in this dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_sat=</span><span class="kw">mean</span>(sat_avg,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_sat
+##      &lt;dbl&gt;
+## 1  1192.89</code></pre>
+<p><em>Combining Commands</em> We can also combine commands, so that summaries are done on only a part of the dataset. Below, I summarize mediand debt for selective schools, and not very selective schools.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## What&#39;s the average median debt for very selective schools?
+sc%&gt;%<span class="kw">filter</span>(adm_rate&lt;.<span class="dv">1</span>)%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_debt=</span><span class="kw">mean</span>(debt_mdn,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_debt
+##       &lt;dbl&gt;
+## 1    8264.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## And for not very selective schools?
+sc%&gt;%<span class="kw">filter</span>(adm_rate&gt;.<span class="dv">3</span>)%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_debt=</span><span class="kw">mean</span>(debt_mdn,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_debt
+##       &lt;dbl&gt;
+## 1  14120.92</code></pre>
+<p><em>Quick Exercise</em> Calcualte average earnings for schools where SAT&gt;1200</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc%&gt;%<span class="kw">filter</span>(sat_avg&gt;<span class="dv">1200</span>)%&gt;%<span class="kw">summarize</span>(<span class="dt">mean_earn=</span><span class="kw">mean</span>(md_earn_wne_p6,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_earn
+##       &lt;dbl&gt;
+## 1     50220</code></pre>
+<p><em>Grouping Data</em> Another powerful tool is being able to calculate characteristics for various groups. For example, what are the average earnings for the three different types of colleges (public, private non-profit, private for-profit) in the dataset?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># </span>
+<span class="co"># sc%&gt;%group_by(control)</span>
+<span class="co"># %&gt;%</span>
+<span class="co">#   summarize(mean_earnings=mean(md_earn_wne_p6))</span>
+<span class="co"># </span>
+<span class="co"># sc%&gt;%group_by(control)%&gt;%</span>
+<span class="co">#   summarize(mean_debt=mean(debt_mdn))</span></code></pre></div>
+<p><em>Plotting Data</em> The last basic tool for looking at a dataset is plotting the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plotting: bivariate
+gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>sc,<span class="kw">aes</span>(<span class="dt">x=</span>sat_avg,<span class="dt">y=</span>adm_rate))
+gg&lt;-gg+<span class="kw">geom_point</span>()
+gg&lt;-gg+<span class="kw">geom_smooth</span>()
+gg</code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<pre><code>## Warning: Removed 27 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/plotting-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Univariate descriptives
+
+gg&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>sc,<span class="kw">aes</span>(adm_rate))
+gg&lt;-gg+<span class="kw">geom_density</span>()
+gg</code></pre></div>
+<p><img src="data_step_files/figure-html/plotting-2.png" width="672" /></p>
+<p><em>Quick exercise</em> Replicate the above plots, but put cost of attendance on the y axis.</p>
+</div>
+<div id="your-first-commit-hello_world.rmd" class="section level2">
+<h2><span class="header-section-number">2.9</span> Your first commit: hello_world.Rmd</h2>
+<p>.Rmd files will be the only file format we work in this class. .Rmd files contain three basic elements:</p>
+<ol style="list-style-type: decimal">
+<li>Script that can be interpreted by R.</li>
+<li>Output generated by R, including tables and figures.<br />
+</li>
+<li>Text that can be read by humans.</li>
+</ol>
+<p>From a .Rmd file you can generate html documents, pdf documents, word documents, slides . . . lots of stuff. All class notes will be in .Rmd. All assignments will be turned in as .Rmd files, and your final project? You guessed it, .Rmd.</p>
+<p>For today, I want you to create a file called <code>hello_world_&lt;lastname&gt;.Rmd</code> in your github repo for assignment 1. It should contain the following elements:</p>
+<ol style="list-style-type: decimal">
+<li>A sentence that says “Hello, World”</li>
+<li>R output that summarizes one of the variables in the <code>colllege.Rdata</code> dataset</li>
+<li>R output that shows a scatterplot for two of the variables in the <code>college.Rdata</code> dataset. Lucky for you this is is also your first assignment! Submit it under assignment 1, using the format <code>assignment1_&lt;lastname&gt;.Rmd</code>. All assignments should be turned in using this format.</li>
+</ol>
+<p><em>Stretch Items</em></p>
+<p>If you have extra time, you can do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Calculate the average earnings for individuals at the most selective colleges, then compare that with individuals at the least selective colleges in the dataset.</li>
+<li>Find a way to determine whether colleges with very high SAT scores tend to be larger or smaller than colleges with low SAT scores.</li>
+<li>Plot the relationship between cost and debt. What do you see? Does this surprise you?</li>
+<li>Now, provide separate plots for cost and debt by control of the institution.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
