@@ -1,0 +1,313 @@
+#Presenting Data 1: Plotting Conditional Means {#plot_means}
+
+The idea when plotting conditional means is to show how the outcome, or variable of interest, varies as a function of predictors. 
+
+Today we'll be working with a dataset from IBM which provide a standard HR dataset, which we can use to predict attrition. Attrition in this case is defined as an employee leaving without being fired or retiring. Companies generally attempt to avoid attrition, as it's very expensive to search for and hire a replacement-- better in general to keep the employees you have, provided they are doing their jobs. This means that it's important to predict who might leave in a given year. This information can be used in a targeted way in order to focus resources on the employees most likely to leave. 
+
+## Setup for plotting conditional means
+
+We start with a standard set of setup commands. Today we'll be working with `dplyr`, `ggplot` plus `readr` and `forcats`.
+```{r  include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(forcats)
+```
+
+Next we load in the data, using the `readr` package. Note that this data is saved as comma separated or `csv.` This is an easy file format to recognize. When we use the `readr` package, it gives us some output that says how it interprets the data-- is it a string variable, numeric (float), integer and so on. 
+
+## Loading Data 
+```{r}
+
+at<-read_csv("https://community.watsonanalytics.com/wp-content/uploads/2015/03/WA_Fn-UseC_-HR-Employee-Attrition.csv")
+
+## Save for later
+save(at,file="at.Rdata")
+
+## load("at.Rdata")
+```
+
+Today, our primary outcome of interest will be attrition. This is a binary variable that is currently encoded as text-- "Yes" or "No." We need to encode it as a binary variable with 1 meaning yes and 0 meaning no. After recoding, we need to make sure that the new variable looks correct. 
+
+```{r}
+## Crate a new variable named attrit and define it as 0
+at$attrit<-0
+at$attrit[at$Attrition=="Yes"]<-1
+
+table(at$Attrition)
+
+table(at$attrit)
+
+table(at$attrit,at$Attrition)
+
+```
+
+Our first prediction will use business travel as a predictor for attrition. There are three categories here-- non travel, travel infrequently, and frequent travel. We'll calculate levels of attrtion at teach level and then take a look at the data. 
+
+```{r}
+
+at_sum<-at%>%
+  group_by(BusinessTravel)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+```
+
+Remember that the mean of a binary variable indicates the proportion of the population that has a certain characteristcs. So, in our case, `r  at_sum$attr_avg[2]` of the sample that travels frequently left the compoany in the last year. Our first plot will be a basic bar plot, showing the average levels of attrition. 
+
+```{r}
+## Bar Plot with aesthentics: mean attrition as height, business travel as cateogry
+gg<-ggplot(at_sum,aes(x=BusinessTravel,y=attr_avg))
+## Use bar plot geometry, height of bars set by level observed in dataset
+gg<-gg+geom_bar(stat="Identity")
+## Print
+gg
+```
+
+This is fine, but it should really be in the order of the underlying variable. We can use `fct_reorder` to do this. 
+
+```{r}
+## Same asethetics, but now orderred by level
+gg<-ggplot(at_sum,aes(x=fct_reorder(BusinessTravel,attr_avg),y=attr_avg))
+
+gg<-gg+geom_bar(stat="identity")
+##Print
+gg
+
+at_sum<-at%>%
+  group_by(Department)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+
+gg<-ggplot(at_sum,aes(x=fct_reorder(Department,attr_avg),y=attr_avg))
+
+gg<-gg+geom_bar(stat="identity")
+##Print
+gg
+```
+
+*Quick Exercise: Create a bar plot showing average attrition by department instead of travel*
+
+A dot plot can be a good way of displaying conditional means as well. Many times dot plots are more easily understood if they are horizontal, so we'll use `coord_flip` to make it horizontal.
+
+```{r}
+
+at_sum<-at%>%
+  group_by(BusinessTravel)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+## Now a dot plot
+gg<-ggplot(at_sum,aes(x=reorder(BusinessTravel,attr_avg),y=attr_avg))
+gg<-gg+geom_point()
+gg<-gg+coord_flip()
+gg
+```
+
+*Quick Exercise: Create a dot plot showing average attrition by department*
+
+## Conditional means using two predictors
+
+We can use graphics to display conditonal means at multiple levels of predictor levels. There are a couple of ways to get this done. When using bar plots we've got two basic tools: location and color. In the first example, we're going to plot attrition by travel and gender, We'll use color to indicate gender, and location to indicate travel.
+
+
+```{r}
+at_sum<-at%>%
+  group_by(BusinessTravel,Gender)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+gg<-ggplot(at_sum,aes(x=reorder(BusinessTravel,attr_avg),y=attr_avg,color=Gender))
+gg<-gg+geom_bar(stat="identity",aes(fill=Gender),position="dodge")
+gg
+
+gg<-ggplot(at_sum,aes(x=reorder(BusinessTravel,attr_avg),y=attr_avg),color=Gender)
+gg<-gg+geom_point(aes(color=Gender))
+gg<-gg+coord_flip()
+gg
+
+
+at_sum<-at%>%
+  group_by(Department,EducationField)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+
+gg<-ggplot(at_sum,aes(x=reorder(EducationField,attr_avg),y=attr_avg,color=Department))
+gg<-gg+geom_bar(stat="identity",aes(fill=Department), position="dodge")
+gg
+
+
+```
+
+*Quick Exercise: Create either a bar plot or a dot plot showing attrition by department AND field of education*
+
+
+```{r}
+
+at_sum<-at%>%
+  group_by(BusinessTravel,Gender,MaritalStatus)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+
+gg<-ggplot(at_sum,aes(x=reorder(BusinessTravel,attr_avg),
+                      y=attr_avg,
+                      color=Gender))
+## Bar plot, with unstacked (dodge)
+ gg<-gg+geom_bar(aes(fill=Gender),stat="identity",position="dodge")
+## Separate out by Marital Status 
+gg<-gg+facet_wrap(~MaritalStatus)
+## Change orientation to sideways
+gg<-gg+coord_flip()
+## Print
+gg
+
+
+gg<-ggplot(at_sum,aes(x=reorder(BusinessTravel,attr_avg),
+                      y=attr_avg))
+
+gg<-gg+geom_point(aes(color=MaritalStatus,shape=Gender))
+gg
+
+
+
+at_sum<-at%>%
+  group_by(EducationField,Gender,Department)%>%
+  summarize(attr_avg=mean(attrit))
+
+at_sum
+
+
+gg<-ggplot(at_sum,aes(x=reorder(Department,attr_avg),
+                      y=attr_avg,
+                      color=Gender))
+
+## Bar plot, with unstacked (dodge)
+ gg<-gg+geom_bar(aes(fill=Gender),stat="identity",position="dodge",color="black")
+## Separate out by Marital Status 
+gg<-gg+facet_wrap(~EducationField)
+## Change orientation to sideways
+gg<-gg+coord_flip()
+## Changing Colors
+
+mypal<-c("lightblue","darkgoldenrod")
+
+gg<-gg+scale_fill_manual(values =mypal )
+## Print
+gg
+## Another way
+
+gg<-gg+scale_fill_brewer(palette = "YlOrRd")
+
+gg
+
+```
+
+*Quick Exercise: Plot predicted attrition by Education Field, Department and Gender*
+
+## Multiple Predictors for Conditional Means
+
+Once you get past three variables, things can get difficult. One solution is to create a new factor with one level for every single level of the predictor variables. 
+
+```{r ,fig.height=6}
+##This gets a little nutty
+at_sum<-at%>%
+  group_by(BusinessTravel,Gender,MaritalStatus,WorkLifeBalance)%>%
+  summarize(attr_avg=mean(attrit))%>%
+  ungroup()%>%
+  arrange(attr_avg)
+
+at_sum
+
+## One Solution
+
+at_sum$grouping<-paste0(at_sum$BusinessTravel,
+                       ", ",
+                       at_sum$Gender,
+                       ", ",
+                       at_sum$MaritalStatus,
+                       ", Work/Life:",
+                       at_sum$WorkLifeBalance)
+
+at_sum$grouping<-as.factor(at_sum$grouping)
+
+at_sum%>%select(grouping,attr_avg)
+
+at_sum<-at_sum%>%filter(attr_avg>.01)
+
+gg<-ggplot(at_sum,aes(x=fct_reorder(grouping,attr_avg),y=attr_avg))
+gg<-gg+geom_bar(stat="identity",aes(fill=MaritalStatus))
+gg<-gg+coord_flip()
+gg
+
+##Cleaning up a bit
+
+gg<-ggplot(at_sum,aes(x=fct_reorder(grouping,attr_avg),y=attr_avg))
+gg<-gg+geom_bar(stat="identity",aes(fill=MaritalStatus))
+gg<-gg+ylab("Proportion of Employees Who Departed")+xlab("Category")
+gg<-gg+coord_flip()
+gg
+```
+
+The other solution is to use facets, or lots of little graphs, which show how the pattern varies across different groups. In this case, our groups will be defined by gender and work/life balance. 
+
+```{r}
+## Using Facets
+
+at_sum<-at%>%
+  group_by(BusinessTravel,Gender,MaritalStatus,WorkLifeBalance)%>%
+  summarize(attr_avg=mean(attrit))%>%
+  ungroup()%>%
+  arrange(attr_avg)
+
+at_sum
+
+
+gg<-ggplot(at_sum,aes(x=fct_reorder(BusinessTravel,attr_avg),y=attr_avg))
+gg<-gg+geom_bar(stat="identity",aes(fill=MaritalStatus),position="dodge")
+gg<-gg+facet_wrap(~Gender+WorkLifeBalance,ncol=4)
+
+
+gg<-gg+ylab("Proportion of Employees Who Departed")+xlab("Category")
+gg<-gg+theme(axis.text.x = element_text(angle = 60, hjust = 1))
+gg<-gg+ggtitle("Departure by Gender and Level of Work/Life Satisfaction")
+gg
+
+```
+
+*Sort of Quick Exercise: Try and Replicate one of the above plots using performance review, department, education field and overtime. *
+
+##Univariate Graphics
+
+Here's a quick rundown on some univariate graphics. Say we wanted a quick count of who was in each department. We can use geom_bar to get this done. By default, this will give us a count in each department. 
+
+```{r}
+gg<-ggplot(at,aes(x=Department,fill=Department))
+gg<-gg+geom_bar()
+mypal<-c("lightblue","yellow3","darkorchid1")
+gg<-gg+scale_fill_manual(values=mypal)
+gg
+``` 
+
+The next univariate graphic you should know is for continuous variables. The first thing you generally want is a histogram. 
+
+```{r}
+gg<-ggplot(at,aes(x=DistanceFromHome))
+gg<-gg+geom_histogram(binwidth = 1,fill="lightblue")
+gg
+``` 
+Density plots provide a continous graphic of the distribution of a variable:
+```{r}
+gg<-ggplot(at,aes(x=DistanceFromHome))
+gg<-gg+geom_density()
+gg
+
+gg<-gg+geom_density(bw=.2)
+gg
+```

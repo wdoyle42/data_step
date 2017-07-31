@@ -1,0 +1,260 @@
+---
+title: "Linear Regression in R"
+author: "Will Doyle"
+date: "September 26, 2016"
+output: md_document
+---
+
+# Using Regression for Prediction
+# Will Doyle
+
+## Overview
+
+So far, we've been using just the simple mean to make predictions. Today, we'll continue using the simple mean to make predictions, but now in a complicated way. Before, when we calculated conditional means, we did so in certain "groupings" of variables. When we run linear regression, we no longer need to do so. Instead, linear regression allows us to calculate the conditional mean of the outcome at _every_ value of the predictor. If the predictor takes on just a few values, then that's the number of conditional means that will be calculated. If the predictor is continuous and takes on a large number of values, we'll still be able to calculate the conditional mean at every one of those values. 
+
+We're going to be working with expenditure data from the 2012 administration of the consumer expenditure survey. The first bit of code gets the libraries we need, the data we need, and opens up a codebook for the data. 
+
+```{r,echo=FALSE}
+########################
+# Code for running regressions in R
+# Will Doyle
+# Started 9/26/
+#######################
+
+
+library(dplyr)
+library(ggplot2)
+library(forcats)
+library(broom)
+
+load("cex.RData")
+my.vals<-names(cex)
+explanation<-c("id",
+               "education: 10 8th grade, 11 9-12, 12 hs grad,13 some college, 14 assoc, 15 bach 16 masters, 17 prof",
+"education of second person",
+"urban: 1=urban, 2=not",
+"race: 1 white, 2 black, 3 native american, 4 asian 5 pi 6 multi",
+"race of other person",
+"income class: 1: 0-10k, 2 5-10k, 3 10-15k 4 15 to 20k 5 20-30k 6 30-40k 7 40-50k 8 50-70k 9 70k+",
+"inc_rank: percentile rank of income",
+"sex of reference: 1 male 2 female",
+"sex of other person",
+"reference person hispanic? 1 hispanic 2 non",
+"other person hispanice? 1 hispanic 2 non",
+"poverty: 1 below poverty, 2 not",
+"region 1 Ne 2 MW 3 South 4 West",
+"family size: ",
+"family type 1 hw, 2 hw own children, oldest under 6, 3 hw own children oldest 6-17, 4 hw own children oldest over 17, 5 all other hws, 6 one parent male, kids under 18, 7 one parent female, kids under 18, 8 single, 9 other ",
+"Children's ages: 0 no kids, 1 all less 6 2 oldest bt 6 and 11, 3 All children between 6 and 11
+ 4 Oldest child between 12 and 17 and at least one child less than 12
+ 5 All children between 12 and 17
+ 6 Oldest child greater than 17 and at least one child less than 17
+ 7 All children greater than 17 one under 6",
+"quarter and year",
+"Dining out",
+"Grocery",
+"Grocery non-food",
+"Grocery food",
+"Alcohol at home",
+"Alcohol out",
+"Other store expenditures",
+"Cigarrettes",
+"Transportation to work"
+)
+
+
+codebook<-data.frame(my.vals, explanation)
+##View(codebook)
+
+## A bit of wrangling
+
+cex<-cex%>%mutate(pov_cym=ifelse(pov_cym=="",NA,pov_cym))
+cex<-cex%>%mutate(pov_cym=fct_recode(as.factor(pov_cym),
+                                     "In Poverty"="2",
+                                     "Not in Poverty"="3"))
+cex<-filter(cex,is.na(pov_cym)==FALSE)
+
+# Function that returns Root Mean Squared Error
+rmse <- function(error)
+{
+  sqrt(mean(error^2))
+}
+
+
+
+```
+
+## Bivariate regression
+
+Our first dependent variable will be dining out. Let's take a look at that variable: 
+
+```{r}
+
+summary(cex$dine_out)
+
+gg<-ggplot(cex,aes(x=dine_out))
+gg<-gg+geom_histogram()
+gg
+
+gg<-ggplot(cex,aes(x=dine_out))
+gg<-gg+geom_density()
+gg
+
+
+```
+
+
+
+Because this variable is pretty non-normally distributed, we may want to think about transforming it. For now, let's just work with it as-is. Let's see if people with bigger families spend more on dining out more than those with smaller families. Before, we would have calculated the conditional mean at every level of family size, or in certain groupings of family size. With regression, we simply specify the relationship. 
+
+```{r}
+
+#Model 1: simple bivariate regression
+
+mod1<-lm(dine_out~fam_size,data=cex) #outcome on left, predictor on right 
+
+summary(mod1)
+
+g1<-ggplot(cex, aes(x=fam_size,y=dine_out))+ #specify data and x and y
+           geom_point(shape=1)+ #specify points
+           geom_smooth(method=lm) #ask for lm line
+g1
+
+pred1<-predict(mod1) #predict using data in memory
+ 
+rmse1<-rmse(cex$dine_out-pred1); rmse
+
+
+```
+
+What this shows is that as family size increases, the amount spent on dining out increases. For every additional family member, an additional `r mod1$coefficients[2]` is predicted to be spent on dining out. The rmse of `r rmse1` gives us a sense of how wrong the model tends to be when using just this one predictor. 
+
+_Quick Exercise_ Run a regression using a different predictor. Calculate rmse and see if you can beat my score. 
+
+## Multiple Regression. 
+
+Okay, so we can see that this is somewhat predictive, but we can do better. Let's add in a second variable: whether or not the family is below the poverty line. 
+
+```{r}
+#Part 2: Multiple regression
+
+mod2<-lm(dine_out~fam_size+
+           pov_cym, #can only take on two values
+          data=cex)
+
+summary(mod2) 
+
+pred2<-predict(mod2)
+
+rmse(cex$dine_out-pred2)
+
+```
+
+So, those who are in poverty spend less on dining out. Alert the media!
+
+_Quick Exercise_ Add poverty to your model from above and see what difference it makes. How is your RMSE? 
+
+Maybe it's the case that those who spend more on groceries dine out less. Let's find out:
+
+```{r}
+#Model 3: predicting dining out using other variables and grocery spending
+
+mod3<-lm(dine_out~
+           fam_size+
+           pov_cym+
+           grocery,
+           data=cex)
+
+summary(mod3)
+
+g2<-ggplot(cex, aes(x=grocery,y=dine_out))+
+           geom_point(shape=1)+ 
+           geom_smooth(method=lm)
+g2
+
+```
+
+Hmm, what happened here?
+
+_Quick Exercise_ Use a subset of the cex data with reasonable bounds on both dining out and grocery expenditures. See if the results hold. 
+
+## Transformations
+
+The big issue as you can see with this data is that the outcome variable isn't normally distributed: most people spend very little on dining out, while some people spend quite a lot. In situations like this, which are VERY common when dealing with monetary values, we want to take the natural log of the outcome variable. A natural log is the power by which we would have to raise $e$, Euler's constant, to be that value: $e^{ln(x)}=x$, or 
+$ln(e^x)=x$.
+
+Economists just basically take the natural log of everything that's denominated in dollar terms, which you probably should do as well. You'll notice in the equations below that I specify the `log()` of both dining out and grocery spending. 
+
+
+```{r}
+
+#Part 4: Working with transformations
+mod4<-lm(log(dine_out+1)~ #log of dining out, plus one for zeros
+           +log(grocery+1)+ #log of groceries, plus one again
+           pov_cym+ #poverty
+           fam_size #family size
+         ,data=cex)
+
+summary(mod4)
+
+pred4<-(predict(mod4))
+
+exp(rmse(log(cex$dine_out+1)-pred4))
+
+g4<-ggplot(cex, aes(x=grocery,y=exp(pred4),color=pov_cym))
+g4<-g4+geom_point(shape=1)
+
+g4
+
+```
+
+When calculating RMSE, I need to work with it in log format. The `prediction` command will give me back a prediction in log format as well. I take the difference between the two in log format, then exponentiate using the `exp` command, which means raising $e$ to the power of $x$, $e^x$.   
+
+```{r}
+#Part 5: Adding income 
+mod5<-lm(log(dine_out+1)~
+           +log(grocery+1)+
+           pov_cym+
+           fam_size+
+           inclass
+         ,data=cex)
+
+summary(mod5)
+
+pred5<-(predict(mod5))
+
+exp(rmse(log(cex$dine_out+1)-pred5 ))
+
+g5<-ggplot(cex, aes(x=inclass,y=dine_out,group=1))+
+           geom_point(shape=1)+
+           geom_smooth(method=lm)
+g5
+
+```
+
+#Regression using a binary outcome
+
+You can also run a regression using a binary variable. Let's recode and then use our cigarettes variable to look at predictors of buying any cigarretes at all.
+
+```{r}
+cex$cigs<-0
+cex$cigs[cex$cigarettes>0]<-1
+
+mod6<-lm(cigs~educ_ref+
+           ref_race+
+           inc_rank+
+           sex_ref+
+           fam_type,
+         data=cex)
+
+summary(mod6)
+
+g4<-ggplot(cex,aes(x=fam_type,y=cigs,group=1))+
+  geom_jitter()
+
+g4
+```
+
+# Thinking about regression for prediction
+
+You MUST remember: correlation is not causation. All you can pick up on using this tool is associations, or common patterns. You can't know whether one thing causes another. Remember that the left hand side variable could just as easily be on the right hand side. 

@@ -1,0 +1,267 @@
+---
+title: "Using Databases"
+author: "Will Doyle"
+date: "October 31, 2016"
+output: github_document
+---
+
+# Introduction: What's a Database? 
+Databases are the primary way large organizations and governments organize and store data. What makes a database distinct from a dataset is that it stores data in multiple tables, which are called "flat files" in the parlance of databases. The relationships between each of the tables is recorded in a schema. Some terms from database land and their translation in R:
+
+* A table (sometimes called a file) in a database is like a data frame in R: a 2 dimensional array. The 2 dimensions are referred to as "records" and "fields". These are typically organized by their primary id, or unit of analysis. 
+* A record is what we could call a case or a unit of observation. A record is composed of fields.
+* A field is what we would call a variable name. A field is composed of multiple records
+* A relational database is a set of tables that are linked by a set of common identifiers. Not every table can be linked to every other table, and tables do not need to have the same primary ids. 
+* A database management system is software that provides a way to interact with a database. 
+
+The DBMS that is used most frequently is SQL and its variants, MYSQL and sqlite. Mariadb is a newer "sort of" variant of sql. Google BigQuery is one used by many companies, while Microsoft Access is a plague that has been set upon us for our transgressions. We hope someday the curse will be lifted. 
+
+An R analyst typically doesn't want to be a database person-- they just want to get the data out in a way that they can use for data analysis. It's not worth it to store data on your own computer in a database-- it will just slow you down. Instead, this lesson is intended for when you have a chance to interact with a truly large database. 
+
+# NYC Flights
+
+Today we'll use the `nyclfights13` database, which contains information on every single flight departing New York City in 2013, including airline information, airport information, flight information, plane information and weather information. We'll also use the Lahman database, which contains information on every single player to ever play any professional baseball since 1871, including batting, pitching, team information and so on. 
+
+```{r}
+# Mostly taken from : http://cran.r-project.org/web/packages/dplyr/vignettes/databases.html circa 2014
+
+# Will need: nycflights13 RSQLite, Lahman
+
+#Get libraries
+library(nycflights13)
+library(Lahman)
+library(dplyr)
+library(RSQLite)
+library(ggplot2)
+```
+
+
+```{r}
+# Data sources from NYC flights
+data(flights)
+data(airlines)
+data(airports)
+data(weather)
+data(planes)
+```
+
+# Connecting to a database
+
+I'm going to do something kind of unusual for this class: I'm going to create a database from existing flat files. You should never do this-- it's just for teaching. I'm using the RSQLite package to open a connection to a database. In your work, you would just open the connection, many times through a secure network.
+
+`con` below refers to our connection to a database. It remains open until we close it. It will be based on the properties of the database we're trying to access. 
+
+```{r}
+con <- dbConnect(RSQLite::SQLite(), ":memory:")
+
+#Write flights tables to database (you won't usually do this)
+dbWriteTable(con,
+             "flights", 
+             as.data.frame(flights))
+
+dbWriteTable(con,
+             "planes", 
+             as.data.frame(planes))
+
+dbWriteTable(con,
+             "airlines", 
+             as.data.frame(airlines))
+
+dbWriteTable(con,
+             "weather", 
+             as.data.frame(weather))
+
+dbWriteTable(con,
+             "airports", 
+             as.data.frame(airports))
+```
+Now I have an open connection to a database that contains multiple tables. Let's ask which tables we have access to:
+```{r}
+#List tables in database
+dbListTables(con)
+```
+
+For some of these tables, what fields are included? 
+
+```{r}
+#List fields in various tables
+dbListFields(con,"airlines")
+
+dbListFields(con,"flights")
+```
+
+SQL is its own language. One of the main things people do with SQL is to generate requests. Below, we create request text which asks for every field from the flights table, then sends that query to the database.Once we get the return back, we turn it into a data frame. As a matter of good practice, we also clear that request.
+```{r}
+#Generate a SQL request to a database
+req_text<-"Select * from flights"
+
+#Send query through connection
+req<-dbSendQuery(con,req_text)
+
+#Generate dataframe from results
+req.df<-dbFetch(req,n=-1)
+
+#Good practice: clear request
+dbClearResult(req)
+```
+
+Let's take a look at the generated data frame. 
+```{r}
+dim(req.df)
+
+head(req.df,20)
+```
+
+```{r}
+req2<-"Select * from weather"
+
+req<-dbSendQuery(con,req2)
+
+weather.df<-dbFetch(req,n=-1)
+
+dbClearResult(req)
+
+```
+
+
+*Quick Exercise:*  Get the weather table and put it in a data frame
+
+Many times we want to generate a request that will only give us part of some tables. We'd also like to join tables together in many circumstances. Below is a SQL request that includes the key verbs SELECT, FROM, JOIN and WHERE.
+
+```{r}
+#New request: which carriers have longer delays? 
+req1_text<-"SELECT a.carrier, a.name, f.dep_delay 
+            FROM flights f 
+            JOIN airlines a ON a.carrier=f.carrier 
+            WHERE f.dep_delay>60
+            "
+
+req1<-dbSendQuery(con,req1_text)
+
+req1.df<-dbFetch(req1,n=-1)
+
+dbClearResult(req1)
+
+head(req1.df)
+
+table(req1.df$name)
+
+delay.summary<-req1.df%>%group_by(name)%>%summarize(avg_delay=mean(dep_delay,na.rm=TRUE))
+
+delay.summary<-delay.summary%>%arrange(-avg_delay)
+
+delay.summary
+```
+
+* Quick Exercise* Get data on airlines who fly at least 1000km, and number of flights over that length
+
+```{r}
+req3_text<-"SELECT a.carrier, a.name, f.distance
+            FROM flights f 
+            JOIN airlines a ON a.carrier=f.carrier 
+            WHERE f.distance>=1000
+            "
+
+req3<-dbSendQuery(con,req3_text)
+
+req3.df<-dbFetch(req1,n=-1)
+
+req3.df<-req3.df%>%group_by(carrier)%>%summarize(total_flights=count(distance)
+
+```
+
+
+We can combine multiple tables to answer questions about 
+
+```{r}
+#SQL request, flight info combined with weather info
+weather_text<-"SELECT f.year, f.month, f.day, f.distance, f.dep_delay,w.visib, w.wind_speed, w.wind_gust
+              FROM weather w
+              JOIN flights f
+              ON f.year=w.year
+              AND f.month=w.month
+              AND f.day=w.day
+              WHERE f.dep_delay>20 AND w.wind_gust<1000"
+
+weather_req<-dbSendQuery(con,weather_text)
+
+weather.df<-dbFetch(weather_req,n=-1)
+
+dbClearResult(weather_req)
+
+head(weather.df)
+
+weather.summary<-weather.df%>%group_by(wind_gust)%>%summarize(avg_delay=mean(dep_delay,na.rm=TRUE))
+
+weather.summary
+
+```
+
+
+
+```{r}
+#Plot average delay by visibility
+g1<-ggplot(data=weather.summary,aes(x=wind_gust,y=avg_delay))
+g1<-g1+geom_point()
+g1
+
+
+```
+
+*Quick Exercise* Plot average delay by wind gusts
+
+It's good practice to disconnect from a database when done. 
+```{r}
+## Disconnect when done
+dbDisconnect(con)
+```
+
+`dplyr` also has a way to connect with a database. The advantage AND disadvantage of dplyr is that it's not trying to be like SQL, although it has a full suite of SQL commands plus sql translations built in. 
+
+```{r}
+# The dplyr way:
+
+my_db <- src_sqlite("my_db.sqlite3", create = T)
+
+flights_sqlite <- copy_to(my_db, flights, temporary = FALSE, indexes = list(
+  c("year", "month", "day"), "carrier", "tailnum"))
+
+flights_sqlite <- tbl(nycflights13_sqlite(), "flights")
+
+```
+
+With a table in memory, we can change it to a tibble and do all the fun `dplyr` stuff. 
+
+```{r}
+flights_sqlite <- tbl(nycflights13_sqlite(), "flights")%>%tbl_df()%>%filter(carrier=="UA")
+```
+
+A famous database in this area is the Lahman database. This contains data on every baseball player who's played Major League baseball since 1871 (more or less). Even though the wrong team is playing for the National League given that it's an even year, I still wanted to show you how this might work. 
+
+```{r}
+## Because it's October
+
+if (has_lahman("sqlite")) {
+  lahman_sqlite()
+  batting <- tbl(lahman_sqlite(), "Batting")
+  master<-tbl(lahman_sqlite(),"Master")
+  collegePlaying<-tbl(lahman_sqlite(),"collegePlaying")
+  }
+
+battingLabels
+
+batting<-batting%>%tbl_df%>%filter(yearID==2015,AB>100)%>%select(playerID,AB,H)
+master<-master%>%tbl_df()%>%select(playerID,nameFirst,nameLast,nameGiven)
+
+bat_full<-left_join(batting,master,by="playerID")
+
+bat_full<-bat_full%>%mutate(bat_avg=H/AB)%>%arrange(-bat_avg)
+## Compare to: http://www.baseball-reference.com/leagues/MLB/2015-batting-leaders.shtml
+## Why different?
+```
+
+*Quick Exercise* Generate a table with batting averages for every player who's played for Vanderbilt in the last 20 years. 
+
+## MY ADVICE
+
+Unless you're going to be a database analyst, do a bare minimum in the DBMS. Instead, use the DBMS to generate tables of manageable size for your computer, then get to work with R. 

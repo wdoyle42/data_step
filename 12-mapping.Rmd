@@ -1,0 +1,252 @@
+---
+title: "Mapping in R"
+author: "Will Doyle"
+output: github_document
+---
+
+## Introduction
+
+Mapping is a great way to communicate information. In my experience, people find maps a very easy way to relate to the information that you're trying to provide. Any time you have data that is usefully grouped at a geographic level you should generate some maps to understand spatial patterns. 
+
+We'll need a few new libraries today, including the `maptools` and `maps` libraries. 
+
+```{r}
+#############################
+# Mapping Data in R
+# Will Doyle
+# Project start 11/15/2014
+#############################
+
+#packages
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+library(XML)
+library(maptools)
+library(maps)
+library(ggmap)
+```
+
+A choropleth map makes use of existing political boundaries. Most maps (state, county) that we're familiar with are actually choropleths. Other types would make use of natrual or analyst-created boundaries. 
+
+For our first choropleth, we're going to work with some data on income inequality. We will use a 50 state map to get the proportion of income that's earned by the top 1 percent of the population. 
+
+```{r}
+#State Level Choropleth
+#Indebted to:http://trinkerrstuff.wordpress.com/2013/07/05/ggplot2-chloropleth-of-supreme-court-decisions-an-tutorial/
+
+#Inequality data from: http://www.shsu.edu/eco_mwf/inequality.html
+
+ineq<-read.csv("http://www.shsu.edu/eco_mwf/Frank_Top1_v97.csv")
+
+ineq.sub<-ineq[ineq$year==2010,]
+
+ineq.sub$state<-tolower(ineq.sub$state)
+
+states_map<-map_data("state")
+
+g1<-ggplot(ineq.sub, aes(map_id = state,fill=top1)) 
+g1<-g1+  geom_map(map = states_map, color ="black") 
+g1<-g1+  expand_limits(x = states_map$long, y = states_map$lat) 
+
+
+g1<-g1+theme(legend.position = "bottom",
+        axis.ticks = element_blank(), 
+        axis.title = element_blank(), 
+        axis.text =  element_blank()
+)
+
+g1<-g1+ scale_fill_gradient(low="white", high="orange",name="Percent of Income Earned by Top 1%") 
+g1<-g1+  guides(fill = guide_colorbar(barwidth = 10, barheight = .5)) 
+g1 <- g1 + coord_map("albers",lat0=39, lat1=45)
+g1<-g1+theme(legend.position = "bottom")
+g1
+```
+
+## Top 10 % data
+
+Now, let's do the same thing, but with the 10% data. We'll changes the colorscale and try some different projections. 
+```{r}
+ineq<-read.csv("http://www.shsu.edu/eco_mwf/Frank_Top10_v97.csv")
+
+ineq.sub<-ineq[ineq$year==2012,]
+
+ineq.sub$state<-tolower(ineq.sub$state)
+
+states_map<-map_data("state")
+
+g1<-ggplot(ineq.sub, aes(map_id = state,fill=top10)) 
+g1<-g1+  geom_map(map = states_map, color ="black") 
+g1<-g1+  expand_limits(x = states_map$long, y = states_map$lat) 
+
+
+g1<-g1+theme(legend.position = "bottom",
+             axis.ticks = element_blank(), 
+             axis.title = element_blank(), 
+             axis.text =  element_blank()
+)
+
+g1<-g1+  scale_fill_gradient(low="white", high="purple",name="Percent of Income Earned by Top 10% ") 
+g1<-g1+  guides(fill = guide_colorbar(barwidth = 10, barheight = .5)) 
+g1<-g1+theme(panel.border = element_blank(), 
+             panel.grid.major = element_blank(),
+             panel.grid.minor = element_blank(),
+             panel.background=element_blank())
+g1
+
+g1 <- g1 + coord_map("albers",lat0=39, lat1=45)
+g2 <- g1 + coord_map("mercator")
+g3 <- g1 + coord_map("gilbert")
+g4 <- g1 + coord_map("stereographic")
+g5 <- g1 + coord_map("cylindrical")
+g6 <- g1 + coord_map("azequalarea")
+```
+
+
+
+We can do the same thing with county-level maps. 
+
+```{r}
+#County Level Choropleth
+
+#Remember the quick facts data? 
+
+
+#Check to see if data already in project directory, if so open
+
+
+  load("quickfacts.Rdata") 
+  
+
+  
+qf2.sub<-data.frame(qf$fips,qf$coll_grad_pc)
+names(qf2.sub)<-c("fips","value")
+qf2.sub$fips<-as.numeric(as.character(qf2.sub$fips))
+data(county.fips)
+qf2.sub<-left_join(qf2.sub,county.fips,by="fips")
+qf2.sub$polyname<-as.character(qf2.sub$polyname)
+
+
+#Get shapefile
+county_map<-map_data("county")
+
+county_map$polyname<-paste(as.character(county_map$region),as.character(county_map$subregion),sep=",")
+
+#combine with shapefile
+mapdata<-left_join(county_map,qf2.sub,by="polyname")
+
+#Order is important
+mapdata <- mapdata[order(mapdata$order), ]
+
+mapdata<-mapdata%>%arrange(order)
+
+#draw map
+
+
+g2<-ggplot(mapdata, aes(long, lat, group = group,fill=as.numeric(as.character(value)))) +
+  geom_polygon(colour = "white", size = 0) + 
+  scale_fill_continuous(low = "white",high = "purple",name="Percent W/ College Degree")
+
+
+g2<-g2+theme(legend.position = "bottom",
+             axis.ticks = element_blank(), 
+             axis.title = element_blank(), 
+             axis.text =  element_blank() )
+
+g2<-g2+  guides(fill = guide_colorbar(barwidth = 10, barheight = .5)) 
+
+g2<-g2+theme(panel.border = element_blank(), 
+             panel.grid.major = element_blank(),
+             panel.grid.minor = element_blank(),
+             panel.background=element_blank())
+
+g2
+
+
+qf2.sub<-data.frame(qf$fips,qf$median_home_val)
+names(qf2.sub)<-c("fips","value")
+qf2.sub$fips<-as.numeric(as.character(qf2.sub$fips))
+data(county.fips)
+qf2.sub<-left_join(qf2.sub,county.fips,by="fips")
+qf2.sub$polyname<-as.character(qf2.sub$polyname)
+qf2.sub$value<-as.numeric(as.character(qf2.sub$value))
+qf2.sub$value[qf2.sub$value>250000]<-250000
+
+#Get shapefile
+county_map<-map_data("county")
+
+county_map$polyname<-paste(as.character(county_map$region),as.character(county_map$subregion),sep=",")
+
+#combine with shapefile
+mapdata<-left_join(county_map,qf2.sub,by="polyname")
+
+#Order is important
+mapdata <- mapdata[order(mapdata$order),]
+
+#draw map
+
+g2<-ggplot(mapdata, aes(long, lat, group = group,fill=as.numeric(as.character(value)))) +
+  geom_polygon(colour = "black", size = 0.2) + 
+  scale_fill_continuous(low = "white",high = "purple",name="Median Home Value")
+
+
+g2<-g2+theme(legend.position = "bottom",
+             axis.ticks = element_blank(), 
+             axis.title = element_blank(), 
+             axis.text =  element_blank() )
+
+g2<-g2+  guides(fill = guide_colorbar(barwidth = 10, barheight = .5)) 
+
+
+g2
+
+
+
+
+```
+
+The `blscraper` package automates this process, while the `tigris` package provides up-to-date shape files. The `leaflet` package can make interactive graphics. This is kind of crazy, to be honest. 
+
+```{r}
+
+## From: https://cran.r-project.org/web/packages/blscrapeR/vignettes/Mapping_BLS_Data.html
+
+# Leaflet map
+library(blscrapeR)
+library(tigris)
+library(leaflet)
+map.shape <- counties(cb = TRUE, year = 2015)
+df <- get_bls_county()
+
+df<-df%>%mutate(employ_rate=employed/labor_force)
+
+# Slice the df down to only the variables we need and rename "fips" colunm
+# so I can get a cleaner merge later.
+df <- subset(df, select = c("employ_rate", "fips"))
+colnames(df) <- c("employ_rate", "GEOID")
+
+
+
+# Merge df with spatial object.
+leafmap <- geo_join(map.shape, df, by="GEOID")
+
+# Format popup data for leaflet map.
+popup_dat <- paste0("<strong>County: </strong>", 
+                    leafmap$NAME, 
+                    "<br><strong>Value: </strong>", 
+                    leafmap$employ_rate)
+
+pal <- colorQuantile("PuOr", NULL, n = 10)
+
+# Render final map in leaflet.
+lmap<-leaflet(data = leafmap) %>% addTiles() %>%
+    addPolygons(fillColor = ~pal(employ_rate), 
+                fillOpacity = 0.8, 
+                color = "#BDBDC3", 
+                weight = 1,
+                popup = popup_dat)
+
+
+
+```
+
