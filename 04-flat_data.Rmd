@@ -1,28 +1,17 @@
----
-title: Working with flat data
-author: Will Doyle
-date: "September 19, 2016"
-output: md_document
----
-
-##Working with flat data files
+#Working with flat data files {#flat_data}
 
 Flat data is data that is arranged with one case per row, with one column per variable-- more or less. It's stored in a variety of formats, with different conventions. Our goal is to get it into the most useful format for analysis: what's known as tidy data. 
 
 ```{r} 
-
-library(dplyr)
-library(readr)
-library(gdata)
+library(tidyverse)
 library(haven)
 library(readxl)
-library(tidyr)
 ```
 
 
-# CSV or other delimited files
+## CSV or other delimited files
 
-We'll start with a csv file which is among the most common types. 
+We'll start with a csv file which is among the most common types. CSV stands for _Comma _Separated _Value, meaning that each row is divided into cells by commas. An end of line completes the row. 
 
 
 ```{r}
@@ -30,13 +19,9 @@ We'll start with a csv file which is among the most common types.
 
 #Load in the HSB dataset from the UCLA statistical computing site
 
-
-hsb<-read_csv(file="http://www.ats.ucla.edu/stat/r/modules/hsb2.csv")
-
-
+hsb<-read_csv(file="https://stats.idre.ucla.edu/wp-content/uploads/2016/02/hsb2-2.csv")
 
 write_csv(hsb,path="hsb.csv")
-
 
 #Check it out
 head(hsb)
@@ -48,15 +33,13 @@ my.names<-names(hsb)
 write_delim(hsb, path="hsb.txt",delim="\t")
 
 write_delim(hsb, path="hsb_semicolon.txt",delim=";")
-
-write.fwf(data.frame(hsb),file="hsb.dat",sep="",colnames=FALSE)
-
+gdata::write.fwf(data.frame(hsb),file="hsb.dat",sep="",colnames=FALSE)
 ```
 
 *Quick exercise: write out the HSB file with a semicolon delimiter*
 
 
-# Fixed width files
+## Fixed width files
 
 fixed width files are an older file format that you don't see as much of any more. To read these in, you need a file that tells you the locations of the different variables, known as column positions or locations. 
 
@@ -93,7 +76,7 @@ head(hsb3)
 
 ```
 
-#Excel (sigh)
+##Excel (sigh)
 
 In most business applications you'll work with excel files the most often. To get these into shape you'll have to do some wrangling. Below I show how this is done with data in a common reporting format. 
 
@@ -218,24 +201,26 @@ Other statistical programs have their own file formats. These are easy for these
 
 # Stata
 
-gs1<-read_dta("http://www.ats.ucla.edu/stat/stata/dae/binary.dta")
+hsb_stata<-read_dta("https://stats.idre.ucla.edu/stat/stata/notes/hsb2.dta")
 
-head(gs1)
+head(hsb_stata)
 
 
 #SPSS
-gs2<-read_spss("http://www.ats.ucla.edu/stat/data/binary.sav")
+example_spss<-read_spss("https://stats.idre.ucla.edu/stat/data/binary.sav")
 
-head(gs2)
-
+head(example_spss)
 
 #SAS
+hsb_sas<-read_sas("https://stats.idre.ucla.edu/wp-content/uploads/2016/02/hsb2.sas7bdat")
 
-gs3<-read_sas("http://www.ats.ucla.edu/stat/sas/dae/binary.sas7bdat")
-
-head(gs3)
+head(hsb_sas)
 
 ```
+
+## Output
+
+Most of the time, you should store your data as a csv file. This will ensure that pretty much anyone can take a look at it. If you're sure that the only users will be other R users (why would you be sure of this?), then feel free to save it as an `.Rdata` file. 
 
 ```{r}
 ## ------------------------------------------------------------------------
@@ -245,7 +230,5 @@ save(free2,file="frl.Rdata")
 
 #Outputting delimited
 
-write_csv(free2,file="frl.csv",sep=",")
-```
-
+write_csv(free2,"frl.csv")
 ```
