@@ -258,13 +258,19 @@ If you have extra time, you can do the following:
 3. Plot the relationship between cost and debt. What do you see? Does this surprise you? 
 4. Now, provide separate plots for cost and debt by control of the institution. 
 
-## Github: save, stage, commit
+## Github: save, stage, commit, push
 
 When working with files in your directory, there are three basic steps you can take when using Git as your version control. 
 
 - Saving the file means it is only available to you, on your computer. You should save files as you are working on them. 
+
 - Staging the file means that you would like git (and github) to keep track of the changes you're making to the file. Stage the file by clicking the "staged" box next to it in the Git tab in Rstudio.
-- Committing means that you would like to keep the version of the file you generated. Think of this like emailing it to group members. It doesn't mean that it's done, but it does mean it's in a state that you would like to have a recrod of as you move forward. 
+
+- Committing means that you would like to keep the version of the file you generated. Think of this like emailing it to group members. It doesn't mean that it's done, but it does mean it's in a state that you would like to have a record of as you move forward. To commit a file in Rstudio, 
+
+- Pushing means that you will send the file and the record of all of the changes made to the file to github. To push, click the "push" button in the Git tab in Rstudio.  You should do this everytime you finish a working session, at an absolute minimum. 
+
+
 
 
 
