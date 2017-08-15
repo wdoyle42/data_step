@@ -1,12 +1,6 @@
----
-title: "Linear Regression in R"
-author: "Will Doyle"
-date: "September 26, 2016"
-output: md_document
----
 
 # Using Regression for Prediction
-# Will Doyle
+
 
 ## Overview
 

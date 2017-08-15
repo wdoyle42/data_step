@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Data Science in Education: A Step-by-Step Guide</title>
+  <meta name="description" content="Doing data science: a step-by-step guide">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Data Science in Education: A Step-by-Step Guide" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Doing data science: a step-by-step guide" />
+  <meta name="github-repo" content="wdoyle42/data_step" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Data Science in Education: A Step-by-Step Guide" />
+  
+  <meta name="twitter:description" content="Doing data science: a step-by-step guide" />
+  
+
+<meta name="author" content="Will Doyle">
+
+
+<meta name="date" content="2017-08-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="thinking-about-regression-for-prediction.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#getting-data-topics"><i class="fa fa-check"></i><b>1.1</b> Getting Data Topics</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#analyzing-data-topics"><i class="fa fa-check"></i><b>1.2</b> Analyzing Data Topics</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#presenting-data-analysis-topics"><i class="fa fa-check"></i><b>1.3</b> Presenting Data Analysis Topics</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Welcome to Data Science!</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introductions"><i class="fa fa-check"></i><b>2.1</b> Introductions</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#installing-r"><i class="fa fa-check"></i><b>2.2</b> Installing R</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#installing-rstudio"><i class="fa fa-check"></i><b>2.3</b> Installing Rstudio</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#installing-git"><i class="fa fa-check"></i><b>2.4</b> Installing git</a></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#getting-set-up-on-github"><i class="fa fa-check"></i><b>2.5</b> Getting set up on GitHub</a></li>
+<li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#initializing-repos"><i class="fa fa-check"></i><b>2.6</b> Initializing repos</a></li>
+<li class="chapter" data-level="2.7" data-path="intro.html"><a href="intro.html#installing-github-desktop"><i class="fa fa-check"></i><b>2.7</b> Installing Github Desktop</a></li>
+<li class="chapter" data-level="2.8" data-path="intro.html"><a href="intro.html#integrating-rstudio-with-github"><i class="fa fa-check"></i><b>2.8</b> Integrating Rstudio with GitHub</a></li>
+<li class="chapter" data-level="2.9" data-path="intro.html"><a href="intro.html#cloning-down-your-repo"><i class="fa fa-check"></i><b>2.9</b> Cloning down your repo</a></li>
+<li class="chapter" data-level="2.10" data-path="intro.html"><a href="intro.html#linking-github-and-rstudo"><i class="fa fa-check"></i><b>2.10</b> Linking Github and Rstudo</a></li>
+<li class="chapter" data-level="2.11" data-path="intro.html"><a href="intro.html#yes-we-code-running-r-code"><i class="fa fa-check"></i><b>2.11</b> Yes We Code! Running R Code</a></li>
+<li class="chapter" data-level="2.12" data-path="intro.html"><a href="intro.html#your-first-commit-hello_world.rmd"><i class="fa fa-check"></i><b>2.12</b> Your first commit: hello_world.Rmd</a></li>
+<li class="chapter" data-level="2.13" data-path="intro.html"><a href="intro.html#github-save-stage-commit-push"><i class="fa fa-check"></i><b>2.13</b> Github: save, stage, commit, push</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html"><i class="fa fa-check"></i><b>3</b> Analyzing Data, Part 1: Conditional Means</a><ul>
+<li class="chapter" data-level="3.1" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#dataset-for-this-week"><i class="fa fa-check"></i><b>3.1</b> Dataset for this week</a></li>
+<li class="chapter" data-level="3.2" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#dependent-variable"><i class="fa fa-check"></i><b>3.2</b> Dependent Variable</a></li>
+<li class="chapter" data-level="3.3" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#unconditional-means"><i class="fa fa-check"></i><b>3.3</b> Unconditional Means</a></li>
+<li class="chapter" data-level="3.4" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#conditional-means-with-one-predictor-variable"><i class="fa fa-check"></i><b>3.4</b> Conditional Means With One Predictor Variable</a></li>
+<li class="chapter" data-level="3.5" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#conditional-means-with-multiple-predictors"><i class="fa fa-check"></i><b>3.5</b> Conditional Means with Multiple Predictors</a></li>
+<li class="chapter" data-level="3.6" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#final-comparison"><i class="fa fa-check"></i><b>3.6</b> Final Comparison</a></li>
+<li class="chapter" data-level="3.7" data-path="analyzing-data-part-1-conditional-means.html"><a href="analyzing-data-part-1-conditional-means.html#applications-of-the-conditional-mean"><i class="fa fa-check"></i><b>3.7</b> Applications of the Conditional Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plot-means.html"><a href="plot-means.html"><i class="fa fa-check"></i><b>4</b> Presenting Data 1: Plotting Conditional Means</a><ul>
+<li class="chapter" data-level="4.1" data-path="plot-means.html"><a href="plot-means.html#setup-for-plotting-conditional-means"><i class="fa fa-check"></i><b>4.1</b> Setup for plotting conditional means</a></li>
+<li class="chapter" data-level="4.2" data-path="plot-means.html"><a href="plot-means.html#loading-data"><i class="fa fa-check"></i><b>4.2</b> Loading Data</a></li>
+<li class="chapter" data-level="4.3" data-path="plot-means.html"><a href="plot-means.html#conditional-means-using-two-predictors"><i class="fa fa-check"></i><b>4.3</b> Conditional means using two predictors</a></li>
+<li class="chapter" data-level="4.4" data-path="plot-means.html"><a href="plot-means.html#multiple-predictors-for-conditional-means"><i class="fa fa-check"></i><b>4.4</b> Multiple Predictors for Conditional Means</a></li>
+<li class="chapter" data-level="4.5" data-path="plot-means.html"><a href="plot-means.html#univariate-graphics"><i class="fa fa-check"></i><b>4.5</b> Univariate Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="flat-data.html"><a href="flat-data.html"><i class="fa fa-check"></i><b>5</b> Working with flat data files</a><ul>
+<li class="chapter" data-level="5.1" data-path="flat-data.html"><a href="flat-data.html#csv-or-other-delimited-files"><i class="fa fa-check"></i><b>5.1</b> CSV or other delimited files</a></li>
+<li class="chapter" data-level="5.2" data-path="flat-data.html"><a href="flat-data.html#fixed-width-files"><i class="fa fa-check"></i><b>5.2</b> Fixed width files</a></li>
+<li class="chapter" data-level="5.3" data-path="flat-data.html"><a href="flat-data.html#excel-sigh"><i class="fa fa-check"></i><b>5.3</b> Excel (sigh)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>6</b> Tidy data</a><ul>
+<li class="chapter" data-level="6.1" data-path="tidy-data.html"><a href="tidy-data.html#other-programming-languages"><i class="fa fa-check"></i><b>6.1</b> Other programming languages</a></li>
+<li class="chapter" data-level="6.2" data-path="tidy-data.html"><a href="tidy-data.html#output"><i class="fa fa-check"></i><b>6.2</b> Output</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html"><i class="fa fa-check"></i><b>7</b> Using Regression for Prediction</a><ul>
+<li class="chapter" data-level="7.1" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#overview"><i class="fa fa-check"></i><b>7.1</b> Overview</a></li>
+<li class="chapter" data-level="7.2" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#bivariate-regression"><i class="fa fa-check"></i><b>7.2</b> Bivariate regression</a></li>
+<li class="chapter" data-level="7.3" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#multiple-regression."><i class="fa fa-check"></i><b>7.3</b> Multiple Regression.</a></li>
+<li class="chapter" data-level="7.4" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#transformations"><i class="fa fa-check"></i><b>7.4</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-using-a-binary-outcome.html"><a href="regression-using-a-binary-outcome.html"><i class="fa fa-check"></i><b>8</b> Regression using a binary outcome</a></li>
+<li class="chapter" data-level="9" data-path="thinking-about-regression-for-prediction.html"><a href="thinking-about-regression-for-prediction.html"><i class="fa fa-check"></i><b>9</b> Thinking about regression for prediction</a></li>
+<li class="chapter" data-level="10" data-path="scatterplots.html"><a href="scatterplots.html"><i class="fa fa-check"></i><b>10</b> Scatterplots</a><ul>
+<li class="chapter" data-level="10.1" data-path="scatterplots.html"><a href="scatterplots.html#setup"><i class="fa fa-check"></i><b>10.1</b> Setup</a></li>
+<li class="chapter" data-level="10.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>10.2</b> Bivariate Regression</a></li>
+<li class="chapter" data-level="10.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>10.3</b> Multiple Regression</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science in Education: A Step-by-Step Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="scatterplots" class="section level1">
+<h1><span class="header-section-number">10</span> Scatterplots</h1>
+<p>Scatterplots are the best way to present data that has a continuous response variable. When creating scatterplots, the idea is to show ALL of the data, and then show how your model is summarizing the relationships in that data.</p>
+<div id="setup" class="section level2">
+<h2><span class="header-section-number">10.1</span> Setup</h2>
+<p>The code for today starts with the normal set of preliminaries, opening up the <code>cex.RData</code> dataset and creating a codebook.</p>
+</div>
+<div id="bivariate-regression-1" class="section level2">
+<h2><span class="header-section-number">10.2</span> Bivariate Regression</h2>
+<p>We begin with a simple model of grocery food spending as a function of income rank. As we found out last week, grocery food spending has a long right tail, and is a good candidate for a log transformation. We’ll be using that log transformation throughout.</p>
+<p>Our first step should be to plot the data. Today, we’ll be using the <code>ggplot2</code> library, which is a highly functional implementation of what’s known as the grammar of graphics. In a very small nutshell, the grammar of graphics refers to laying out a graphic in a series of layers. For our first scatterplot, we first specify the data that we’ll be drawing on, then the “aesthetic” of the graphic, which will be based on our x and y variables from our regression. I then specify the first layer, which is a series of points defined by the intersection of the x and y variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Plot Spending vs. Income</span>
+g1&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
+           <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>))
+           )
+
+g1&lt;-g1+<span class="kw">geom_point</span>() <span class="co"># Add points at x and y</span>
+g1</code></pre></div>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>This first graphic shows the basic problem with the data, which is the highly non-normal shape of the outcome variable. No matter! We’ll keep moving forward. The next line of code adds a layer with a regression line to the plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1&lt;-g1+<span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)
+g1</code></pre></div>
+<pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>It’s also really hard to see. We can use conditional means to help out with that problem. Let’s get the average amount of grocery spending at every percentile level of <code>inc_rank</code>. Notice the use of <code>round</code> to get income percentiles that are at two digits only.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cex_sum&lt;-cex%&gt;%<span class="kw">mutate</span>(<span class="dt">inc_rank_r=</span><span class="kw">round</span>(inc_rank))%&gt;%<span class="kw">group_by</span>(inc_rank_r)%&gt;%<span class="kw">summarize</span>(<span class="dt">groc_mean=</span><span class="kw">mean</span>(grocery))
+
+g1a&lt;-<span class="kw">ggplot</span>(cex_sum,<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank_r,<span class="dt">y=</span>groc_mean))
+
+g1a&lt;-g1a+<span class="kw">geom_point</span>()
+
+g1a</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>We can add a regression line to this simpler data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1a&lt;-g1a+<span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co"># Add a line</span>
+g1a</code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>As we figured out in class last week, a simple line plot doesn’t really do it. We need to transform that dependent variable. Luckily, ggplot has this kind of transformation built in.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
+           <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>))
+           )
+my.breaks=<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">5000</span>,<span class="dv">10000</span>,<span class="dv">20000</span>)
+<span class="co">#Change the scale </span>
+g1&lt;-g1+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span><span class="st">&quot;log&quot;</span>,<span class="dt">breaks=</span>my.breaks)
+g1&lt;-g1+<span class="kw">geom_point</span>() <span class="co"># Add points</span>
+g1&lt;-g1+<span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)  <span class="co">#Add a Line</span>
+g1&lt;-g1+<span class="kw">ylab</span>(<span class="st">&quot;Grocery Spending&quot;</span>)+<span class="kw">xlab</span>(<span class="st">&quot;Income Percentile (0-1)&quot;</span>) <span class="co">#Nice labels</span>
+g1</code></pre></div>
+<pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Notice how different the steps are on the y axis now. But this shows that our line actually fits the data much better once we work on the log scale. We’re now ready to go ahead and run our first model based on what we’ve learned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#First model</span>
+
+m1&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(grocery_food<span class="dv">+1</span>)~inc_rank,<span class="dt">data=</span>cex);<span class="kw">summary</span>(m1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(grocery_food + 1) ~ inc_rank, data = cex)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.3716 -0.3002  0.0714  0.4495  2.8556 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.2657005  0.0230229  272.15   &lt;2e-16 ***
+## inc_rank    0.0111849  0.0003982   28.09   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8775 on 5702 degrees of freedom
+##   (1134 observations deleted due to missingness)
+## Multiple R-squared:  0.1215, Adjusted R-squared:  0.1214 
+## F-statistic: 788.9 on 1 and 5702 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><em>Quick Exercise</em> Create a similar graphic, but this time use other store expenditures as the dependent variable. Run a regression with store expenditures as the dv and income rank as the only independent variable.</p>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2><span class="header-section-number">10.3</span> Multiple Regression</h2>
+<p>The next step is to add covariates. I’ll be working with the variable <code>childage</code> which is a factor that summarizes the ages of kids in the family. I’m going to set the color of the markers by the <code>childage</code> factor.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
+            <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>),<span class="dt">color=</span><span class="kw">as.numeric</span>(childage),<span class="dt">alpha=</span><span class="kw">as.numeric</span>(childage)) <span class="co">#notice the color option</span>
+           )
+
+g2&lt;-g2+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span><span class="st">&quot;log&quot;</span>,<span class="dt">breaks=</span>my.breaks)
+g2&lt;-g2+<span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">1</span>)
+g2</code></pre></div>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>Our first graphic is a bit complex, but shows that those in the “0” category, with no kids, have consistently lower spending on groceries across income levels. So let’s drop that group and see what the graphic looks like for those with at least one kid of any age.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2a&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span><span class="kw">filter</span>(cex,<span class="kw">as.character</span>(cex$childage)!=<span class="st">&quot;0&quot;</span>),
+            <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>),<span class="dt">color=</span>childage)
+           )
+g2a&lt;-g2a+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span><span class="st">&quot;log&quot;</span>,<span class="dt">breaks=</span>my.breaks,<span class="dt">limits=</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">8000</span>)) <span class="co">#Changed overall scale</span>
+g2a&lt;-g2a+<span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>) <span class="co">#Bigger points</span>
+g2a&lt;-g2a+<span class="kw">scale_colour_hue</span>(<span class="dt">l=</span><span class="dv">50</span>) <span class="co">#Darker palette</span>
+g2a</code></pre></div>
+<pre><code>## Warning: Removed 1212 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>Notice the higher spending levels at every income level among those in the 4 and 5 categories.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Model 2: with kids</span>
+
+mod2&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(grocery_food<span class="dv">+1</span>)~inc_rank+childage, <span class="dt">data=</span>cex,<span class="dt">na.action=</span>na.exclude);<span class="kw">summary</span>(mod2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(grocery_food + 1) ~ inc_rank + childage, data = cex, 
+##     na.action = na.exclude)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.1023 -0.2740  0.0760  0.4065  3.0520 
+## 
+## Coefficients:
+##                                                                             Estimate
+## (Intercept)                                                                6.1644855
+## inc_rank                                                                   0.0094850
+## childageAll less 6                                                         0.3310502
+## childageOldest bt 6 and 11                                                 0.5116967
+## childageAll children between 6 and 11                                      0.3977986
+## childageOldest child between 12 and 17 and at least one child less than 12 0.6975020
+## childageAll children between 12 and 17                                     0.3735577
+## childageOldest child greater than 17 and at least one child less than 17   0.6158860
+## childageAll children greater than 17 one under 6                           0.3752501
+##                                                                            Std. Error
+## (Intercept)                                                                 0.0228141
+## inc_rank                                                                    0.0003958
+## childageAll less 6                                                          0.0436714
+## childageOldest bt 6 and 11                                                  0.0565955
+## childageAll children between 6 and 11                                       0.0580077
+## childageOldest child between 12 and 17 and at least one child less than 12  0.0476091
+## childageAll children between 12 and 17                                      0.0529915
+## childageOldest child greater than 17 and at least one child less than 17    0.0589702
+## childageAll children greater than 17 one under 6                            0.0384561
+##                                                                            t value
+## (Intercept)                                                                270.205
+## inc_rank                                                                    23.967
+## childageAll less 6                                                           7.580
+## childageOldest bt 6 and 11                                                   9.041
+## childageAll children between 6 and 11                                        6.858
+## childageOldest child between 12 and 17 and at least one child less than 12  14.651
+## childageAll children between 12 and 17                                       7.049
+## childageOldest child greater than 17 and at least one child less than 17    10.444
+## childageAll children greater than 17 one under 6                             9.758
+##                                                                            Pr(&gt;|t|)
+## (Intercept)                                                                 &lt; 2e-16
+## inc_rank                                                                    &lt; 2e-16
+## childageAll less 6                                                         4.00e-14
+## childageOldest bt 6 and 11                                                  &lt; 2e-16
+## childageAll children between 6 and 11                                      7.74e-12
+## childageOldest child between 12 and 17 and at least one child less than 12  &lt; 2e-16
+## childageAll children between 12 and 17                                     2.01e-12
+## childageOldest child greater than 17 and at least one child less than 17    &lt; 2e-16
+## childageAll children greater than 17 one under 6                            &lt; 2e-16
+##                                                                               
+## (Intercept)                                                                ***
+## inc_rank                                                                   ***
+## childageAll less 6                                                         ***
+## childageOldest bt 6 and 11                                                 ***
+## childageAll children between 6 and 11                                      ***
+## childageOldest child between 12 and 17 and at least one child less than 12 ***
+## childageAll children between 12 and 17                                     ***
+## childageOldest child greater than 17 and at least one child less than 17   ***
+## childageAll children greater than 17 one under 6                           ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8463 on 5695 degrees of freedom
+##   (1134 observations deleted due to missingness)
+## Multiple R-squared:  0.1838, Adjusted R-squared:  0.1826 
+## F-statistic: 160.3 on 8 and 5695 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Now let’s take a look at this model plotted against the actual data. I’m going to use the <code>alpha</code> setting to make the dots smaller. I’m also going to make the dots smaller.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cex&lt;-cex%&gt;%<span class="kw">mutate</span>(<span class="dt">mod2_pred=</span><span class="kw">exp</span>(<span class="kw">fitted</span>(mod2)))
+
+g3&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>grocery_food))
+g3&lt;-g3+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">2</span>,<span class="dt">size=</span>.<span class="dv">75</span>)
+g3&lt;-g3+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span><span class="st">&quot;log&quot;</span>,<span class="dt">breaks=</span>my.breaks)
+g3&lt;-g3+<span class="kw">geom_smooth</span>(<span class="dt">data=</span>cex,(<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>mod2_pred)))
+g3</code></pre></div>
+<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
+<pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>As we add more variables to the model, it can get more difficult to plot relationships. One very good option is to plot lines based on a hypothetical set of data. Below, I create a hypothetical set of data that include values of income across the range of income, and includes values for every level of <code>childage</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Prediction, then plotting</span>
+
+hypo.data&lt;-<span class="kw">data.frame</span>(<span class="kw">expand.grid</span>(
+          <span class="co">#range of income</span>
+          <span class="dt">inc_rank=</span><span class="kw">seq</span>(<span class="kw">min</span>(cex$inc_rank,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+                       <span class="kw">max</span>(cex$inc_rank,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+                       <span class="dt">length=</span><span class="dv">100</span>), 
+          <span class="co">#All levels of childage</span>
+          <span class="dt">childage=</span><span class="kw">levels</span>(cex$childage)                                     
+                                      )
+                          )</code></pre></div>
+<p>Now, using my estimates from model 2, I predict what would happen to these hypothetical individuals. Once I’ve got my prediction, I transform it back out of the log scale into the “response” level of dollars.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Predict using mod2 on hypothetical data</span>
+hypo.pred&lt;-<span class="kw">predict</span>(mod2,
+                   <span class="dt">newdata=</span>hypo.data,
+                   <span class="dt">interval=</span><span class="st">&quot;prediction&quot;</span>,
+                    <span class="dt">se.fit=</span><span class="ot">TRUE</span>
+                   )
+
+hypo.data&lt;-<span class="kw">data.frame</span>(hypo.data,hypo.pred$fit) <span class="co">#Add fit to the dataset</span>
+hypo.data$groc.p&lt;-<span class="kw">exp</span>(hypo.data$fit) <span class="co">#exponentiate fit</span>
+hypo.data$groc.lwr&lt;-<span class="kw">exp</span>(hypo.data$lwr) <span class="co">#exponentiate lower boundary</span>
+hypo.data$groc.upr&lt;-<span class="kw">exp</span>(hypo.data$upr) <span class="co">#exponentiate upper boundary</span></code></pre></div>
+<p>Now we can plot the result, using the <code>geom_smooth</code> layer to give us lines for every level of <code>childage</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g4&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hypo.data,<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>groc.p,<span class="dt">color=</span><span class="kw">fct_reorder</span>(<span class="dt">f=</span>childage,-groc.p))) <span class="co">#notice color</span>
+g4&lt;-g4+<span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm,<span class="dt">se=</span><span class="ot">FALSE</span>)
+g4</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-48-1.png" width="672" /> To show this in the data we can break it out for every type of child age grouping.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Resort child age for graphic
+
+cex&lt;-cex%&gt;%<span class="kw">mutate</span>(<span class="dt">childage=</span><span class="kw">fct_reorder</span>(<span class="dt">f=</span>childage,-grocery_food))
+
+g5&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>grocery_food,<span class="dt">color=</span>childage))
+g5&lt;-g5+<span class="kw">geom_point</span>(<span class="dt">alpha=</span>.<span class="dv">5</span>)
+g5&lt;-g5+<span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)
+g5&lt;-g5+<span class="kw">facet_wrap</span>(~childage,<span class="dt">ncol=</span><span class="dv">3</span>)
+g5&lt;-g5+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</span><span class="st">&quot;log&quot;</span>,<span class="dt">breaks=</span>my.breaks)
+g5&lt;-g5+<span class="kw">xlab</span>(<span class="st">&quot;Income Rank, 0-100&quot;</span>)+<span class="kw">ylab</span>(<span class="st">&quot;Grocery Spending&quot;</span>)
+g5&lt;-g5+<span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
+
+g5</code></pre></div>
+<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis
+
+## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>## Warning: Removed 1190 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
+<p><img src="data_step_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><em>(Not so) Quick Exercise</em> Run a different model, this time using <code>fam_type</code> as a factor variable. Plot the estimated relationship between income rank and food spending for each family type.</p>
+
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="thinking-about-regression-for-prediction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

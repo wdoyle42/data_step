@@ -12,6 +12,46 @@ github-repo: wdoyle42/data_step
 description: "Doing data science: a step-by-step guide"
 ---
 
-# A few notes before we get started
+# Preface
+
+We have entered a time in which vast amounts of data are more widely
+available than ever before. At the same time, a new set of tools has
+been developed to analyze this data and provide decision makers with
+information to help them accomplish their goals. Those who engage with
+data and interpret it for organizational leaders have taken to calling
+themselves data scientists, and their craft data science. Other terms
+that have come into vogue are "Big Data," "Predictive Analytics" and
+"Data Mining." These can seem to be mysterious domains. The point of
+this class is to demystify much of this endeavor for individuals who
+will be organizational leaders.
+
+The class is structured around developing students' skills in three
+areas: getting data, analyzing data to make predictions, and
+presenting the results of analysis. For each area, the subtopics are
+as follows:
+
+Getting Data Topics
+--------------------
+* Tools of the Trade: R and Rstudio, git and Github
+* Working with pre-processed data and flat files
+* Getting data from the web: webscraping, using forms, using Application Programming Interfaces
+* Using databases
+
+Analyzing Data Topics
+----------------------
+* Conditional means
+* Regression
+* Supervised learning: classification
+* Unsupervised learning: K-means and nearest neighbors clustering
+* Evaluating multiple models
+
+Presenting Data Analysis Topics
+---------------------------------
+* Descriptives: histograms, density plots, bar plots, dot
+  plots
+* Scatterplots
+* Lattice graphics and small multiples
+* Maps
+* Interactive Graphics
 
 

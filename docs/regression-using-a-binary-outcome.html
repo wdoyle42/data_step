@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="intro.html">
+<link rel="prev" href="using-regression-for-prediction.html">
+<link rel="next" href="thinking-about-regression-for-prediction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -174,53 +174,75 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Data Science in Education: A Step-by-Step Guide</h1>
-<h4 class="author"><em>Will Doyle</em></h4>
-<h4 class="date"><em>2017-08-15</em></h4>
-</div>
-<div id="preface" class="section level1">
-<h1><span class="header-section-number">1</span> Preface</h1>
-<p>We have entered a time in which vast amounts of data are more widely available than ever before. At the same time, a new set of tools has been developed to analyze this data and provide decision makers with information to help them accomplish their goals. Those who engage with data and interpret it for organizational leaders have taken to calling themselves data scientists, and their craft data science. Other terms that have come into vogue are “Big Data,” “Predictive Analytics” and “Data Mining.” These can seem to be mysterious domains. The point of this class is to demystify much of this endeavor for individuals who will be organizational leaders.</p>
-<p>The class is structured around developing students’ skills in three areas: getting data, analyzing data to make predictions, and presenting the results of analysis. For each area, the subtopics are as follows:</p>
-<div id="getting-data-topics" class="section level2">
-<h2><span class="header-section-number">1.1</span> Getting Data Topics</h2>
-<ul>
-<li>Tools of the Trade: R and Rstudio, git and Github</li>
-<li>Working with pre-processed data and flat files</li>
-<li>Getting data from the web: webscraping, using forms, using Application Programming Interfaces</li>
-<li>Using databases</li>
-</ul>
-</div>
-<div id="analyzing-data-topics" class="section level2">
-<h2><span class="header-section-number">1.2</span> Analyzing Data Topics</h2>
-<ul>
-<li>Conditional means</li>
-<li>Regression</li>
-<li>Supervised learning: classification</li>
-<li>Unsupervised learning: K-means and nearest neighbors clustering</li>
-<li>Evaluating multiple models</li>
-</ul>
-</div>
-<div id="presenting-data-analysis-topics" class="section level2">
-<h2><span class="header-section-number">1.3</span> Presenting Data Analysis Topics</h2>
-<ul>
-<li>Descriptives: histograms, density plots, bar plots, dot plots</li>
-<li>Scatterplots</li>
-<li>Lattice graphics and small multiples</li>
-<li>Maps</li>
-<li>Interactive Graphics</li>
-</ul>
+<div id="regression-using-a-binary-outcome" class="section level1">
+<h1><span class="header-section-number">8</span> Regression using a binary outcome</h1>
+<p>You can also run a regression using a binary variable. Let’s recode and then use our cigarettes variable to look at predictors of buying any cigarretes at all.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cex$cigs&lt;-<span class="dv">0</span>
+cex$cigs[cex$cigarettes&gt;<span class="dv">0</span>]&lt;-<span class="dv">1</span>
 
-</div>
+mod6&lt;-<span class="kw">lm</span>(cigs~educ_ref+
+<span class="st">           </span>ref_race+
+<span class="st">           </span>inc_rank+
+<span class="st">           </span>sex_ref+
+<span class="st">           </span>fam_type,
+         <span class="dt">data=</span>cex)
+
+<span class="kw">summary</span>(mod6)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = cigs ~ educ_ref + ref_race + inc_rank + sex_ref + 
+##     fam_type, data = cex)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5228 -0.2119 -0.1498 -0.0431  0.9906 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.258750   0.108260   2.390 0.016877 *  
+## educ_ref10  -0.101923   0.109432  -0.931 0.351693    
+## educ_ref11   0.006414   0.108639   0.059 0.952923    
+## educ_ref12   0.003200   0.107796   0.030 0.976321    
+## educ_ref13  -0.045853   0.107922  -0.425 0.670947    
+## educ_ref14  -0.023866   0.108584  -0.220 0.826037    
+## educ_ref15  -0.135594   0.108102  -1.254 0.209781    
+## educ_ref16  -0.166795   0.108931  -1.531 0.125777    
+## educ_ref17  -0.154400   0.111589  -1.384 0.166523    
+## ref_race2   -0.028553   0.015545  -1.837 0.066286 .  
+## ref_race3    0.119595   0.073066   1.637 0.101723    
+## ref_race4   -0.036712   0.023509  -1.562 0.118429    
+## ref_race5    0.001864   0.076077   0.024 0.980456    
+## ref_race6   -0.026429   0.041673  -0.634 0.525969    
+## inc_rank    -0.049425   0.021480  -2.301 0.021433 *  
+## sex_ref2    -0.036232   0.010258  -3.532 0.000415 ***
+## fam_type2    0.011057   0.024607   0.449 0.653195    
+## fam_type3   -0.003627   0.017747  -0.204 0.838057    
+## fam_type4    0.051879   0.022608   2.295 0.021784 *  
+## fam_type5    0.049327   0.026059   1.893 0.058421 .  
+## fam_type6    0.019565   0.050344   0.389 0.697569    
+## fam_type7    0.031451   0.026456   1.189 0.234563    
+## fam_type8   -0.005898   0.015284  -0.386 0.699560    
+## fam_type9    0.142249   0.016964   8.385  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3708 on 5668 degrees of freedom
+##   (1132 observations deleted due to missingness)
+## Multiple R-squared:  0.05822,    Adjusted R-squared:  0.05439 
+## F-statistic: 15.23 on 23 and 5668 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g4&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>fam_type,<span class="dt">y=</span>cigs,<span class="dt">group=</span><span class="dv">1</span>))+
+<span class="st">  </span><span class="kw">geom_jitter</span>()
+
+g4</code></pre></div>
+<p><img src="data_step_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="using-regression-for-prediction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="thinking-about-regression-for-prediction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

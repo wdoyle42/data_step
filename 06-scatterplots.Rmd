@@ -1,12 +1,4 @@
-
----
-title: "Scatterplots in R"
-author: "Will Doyle"
-date: "October 3, 2016"
-output: md_document
----
-
-## Scatterplots
+# Scatterplots {#scatterplots}
 
 Scatterplots are the best way to present data that has a continuous response variable. When creating scatterplots, the idea is to show ALL of the data, and then show how your model is summarizing the relationships in that data. 
 
@@ -61,7 +53,7 @@ explanation<-c("id",
 )
 
 codebook<-data.frame(my.vals, explanation)
-View(codebook)
+#View(codebook)
 
 ## Quick transformation of income rank
 
