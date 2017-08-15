@@ -12,7 +12,7 @@ github-repo: wdoyle42/data_step
 description: "Doing data science: a step-by-step guide"
 ---
 
-# Preface
+# Preface {-}
 
 We have entered a time in which vast amounts of data are more widely
 available than ever before. At the same time, a new set of tools has
