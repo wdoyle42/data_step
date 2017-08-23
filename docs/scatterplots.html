@@ -32,7 +32,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="thinking-about-regression-for-prediction.html">
+<link rel="prev" href="using-regression-for-prediction.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,13 +149,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#bivariate-regression"><i class="fa fa-check"></i><b>5.2</b> Bivariate regression</a></li>
 <li class="chapter" data-level="5.3" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#multiple-regression."><i class="fa fa-check"></i><b>5.3</b> Multiple Regression.</a></li>
 <li class="chapter" data-level="5.4" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#transformations"><i class="fa fa-check"></i><b>5.4</b> Transformations</a></li>
+<li class="chapter" data-level="5.5" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#regression-using-a-binary-outcome"><i class="fa fa-check"></i><b>5.5</b> Regression using a binary outcome</a></li>
+<li class="chapter" data-level="5.6" data-path="using-regression-for-prediction.html"><a href="using-regression-for-prediction.html#thinking-about-regression-for-prediction"><i class="fa fa-check"></i><b>5.6</b> Thinking about regression for prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="regression-using-a-binary-outcome.html"><a href="regression-using-a-binary-outcome.html"><i class="fa fa-check"></i><b>6</b> Regression using a binary outcome</a></li>
-<li class="chapter" data-level="7" data-path="thinking-about-regression-for-prediction.html"><a href="thinking-about-regression-for-prediction.html"><i class="fa fa-check"></i><b>7</b> Thinking about regression for prediction</a></li>
-<li class="chapter" data-level="8" data-path="scatterplots.html"><a href="scatterplots.html"><i class="fa fa-check"></i><b>8</b> Scatterplots</a><ul>
-<li class="chapter" data-level="8.1" data-path="scatterplots.html"><a href="scatterplots.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a></li>
-<li class="chapter" data-level="8.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression</a></li>
-<li class="chapter" data-level="8.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>8.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6" data-path="scatterplots.html"><a href="scatterplots.html"><i class="fa fa-check"></i><b>6</b> Scatterplots</a><ul>
+<li class="chapter" data-level="6.1" data-path="scatterplots.html"><a href="scatterplots.html#setup"><i class="fa fa-check"></i><b>6.1</b> Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>6.2</b> Bivariate Regression</a></li>
+<li class="chapter" data-level="6.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>6.3</b> Multiple Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span><ul>
 <li class="chapter" data-level="A.4" data-path="scatterplots.html"><a href="scatterplots.html#kaggle"><i class="fa fa-check"></i><b>A.4</b> Kaggle</a></li>
@@ -185,14 +185,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="scatterplots" class="section level1">
-<h1><span class="header-section-number">8</span> Scatterplots</h1>
+<h1><span class="header-section-number">6</span> Scatterplots</h1>
 <p>Scatterplots are the best way to present data that has a continuous response variable. When creating scatterplots, the idea is to show ALL of the data, and then show how your model is summarizing the relationships in that data.</p>
 <div id="setup" class="section level2">
-<h2><span class="header-section-number">8.1</span> Setup</h2>
+<h2><span class="header-section-number">6.1</span> Setup</h2>
 <p>The code for today starts with the normal set of preliminaries, opening up the <code>cex.RData</code> dataset and creating a codebook.</p>
 </div>
 <div id="bivariate-regression-1" class="section level2">
-<h2><span class="header-section-number">8.2</span> Bivariate Regression</h2>
+<h2><span class="header-section-number">6.2</span> Bivariate Regression</h2>
 <p>We begin with a simple model of grocery food spending as a function of income rank. As we found out last week, grocery food spending has a long right tail, and is a good candidate for a log transformation. We’ll be using that log transformation throughout.</p>
 <p>Our first step should be to plot the data. Today, we’ll be using the <code>ggplot2</code> library, which is a highly functional implementation of what’s known as the grammar of graphics. In a very small nutshell, the grammar of graphics refers to laying out a graphic in a series of layers. For our first scatterplot, we first specify the data that we’ll be drawing on, then the “aesthetic” of the graphic, which will be based on our x and y variables from our regression. I then specify the first layer, which is a series of points defined by the intersection of the x and y variables.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Plot Spending vs. Income</span>
@@ -266,7 +266,7 @@ m1&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(grocery_food<span 
 <p><em>Quick Exercise</em> Create a similar graphic, but this time use other store expenditures as the dependent variable. Run a regression with store expenditures as the dv and income rank as the only independent variable.</p>
 </div>
 <div id="multiple-regression" class="section level2">
-<h2><span class="header-section-number">8.3</span> Multiple Regression</h2>
+<h2><span class="header-section-number">6.3</span> Multiple Regression</h2>
 <p>The next step is to add covariates. I’ll be working with the variable <code>childage</code> which is a factor that summarizes the ages of kids in the family. I’m going to set the color of the markers by the <code>childage</code> factor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
             <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>),<span class="dt">color=</span><span class="kw">as.numeric</span>(childage),<span class="dt">alpha=</span><span class="kw">as.numeric</span>(childage)) <span class="co">#notice the color option</span>
@@ -470,7 +470,7 @@ g5</code></pre></div>
           </div>
         </div>
       </div>
-<a href="thinking-about-regression-for-prediction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-regression-for-prediction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
