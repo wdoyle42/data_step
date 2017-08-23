@@ -158,15 +158,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>9.2</b> Bivariate Regression</a></li>
 <li class="chapter" data-level="9.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li class="chapter" data-level="9.4" data-path="appendix.html"><a href="appendix.html#list-of-lists-of-datasets"><i class="fa fa-check"></i><b>9.4</b> List of Lists of Datasets</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="appendix.html"><a href="appendix.html#kaggle"><i class="fa fa-check"></i><b>9.4.1</b> Kaggle</a></li>
-<li class="chapter" data-level="9.4.2" data-path="appendix.html"><a href="appendix.html#data-is-plural"><i class="fa fa-check"></i><b>9.4.2</b> Data is Plural</a></li>
-<li class="chapter" data-level="9.4.3" data-path="appendix.html"><a href="appendix.html#tableaus-list-of-sports-datasets"><i class="fa fa-check"></i><b>9.4.3</b> Tableau’s list of sports datasets</a></li>
-<li class="chapter" data-level="9.4.4" data-path="appendix.html"><a href="appendix.html#milne-library-list-of-public-datasets"><i class="fa fa-check"></i><b>9.4.4</b> Milne library list of public datasets</a></li>
-<li class="chapter" data-level="9.4.5" data-path="appendix.html"><a href="appendix.html#data.gov"><i class="fa fa-check"></i><b>9.4.5</b> Data.gov</a></li>
-<li class="chapter" data-level="9.4.6" data-path="appendix.html"><a href="appendix.html#awesome-public-datasets-on-github"><i class="fa fa-check"></i><b>9.4.6</b> Awesome public datasets on GitHub</a></li>
-<li class="chapter" data-level="9.4.7" data-path="appendix.html"><a href="appendix.html#google-bigquery-data"><i class="fa fa-check"></i><b>9.4.7</b> Google BigQuery Data</a></li>
+<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX )Appendix</a><ul>
+<li class="chapter" data-level="9.4" data-path="appendix-appendix.html"><a href="appendix-appendix.html#list-of-lists-of-datasets"><i class="fa fa-check"></i><b>9.4</b> List of Lists of Datasets</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="appendix-appendix.html"><a href="appendix-appendix.html#kaggle"><i class="fa fa-check"></i><b>9.4.1</b> Kaggle</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendix-appendix.html"><a href="appendix-appendix.html#data-is-plural"><i class="fa fa-check"></i><b>9.4.2</b> Data is Plural</a></li>
+<li class="chapter" data-level="9.4.3" data-path="appendix-appendix.html"><a href="appendix-appendix.html#tableaus-list-of-sports-datasets"><i class="fa fa-check"></i><b>9.4.3</b> Tableau’s list of sports datasets</a></li>
+<li class="chapter" data-level="9.4.4" data-path="appendix-appendix.html"><a href="appendix-appendix.html#milne-library-list-of-public-datasets"><i class="fa fa-check"></i><b>9.4.4</b> Milne library list of public datasets</a></li>
+<li class="chapter" data-level="9.4.5" data-path="appendix-appendix.html"><a href="appendix-appendix.html#data.gov"><i class="fa fa-check"></i><b>9.4.5</b> Data.gov</a></li>
+<li class="chapter" data-level="9.4.6" data-path="appendix-appendix.html"><a href="appendix-appendix.html#awesome-public-datasets-on-github"><i class="fa fa-check"></i><b>9.4.6</b> Awesome public datasets on GitHub</a></li>
+<li class="chapter" data-level="9.4.7" data-path="appendix-appendix.html"><a href="appendix-appendix.html#google-bigquery-data"><i class="fa fa-check"></i><b>9.4.7</b> Google BigQuery Data</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -276,15 +276,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
 ## Get necessary libraries-- won&#39;t work the first time, because you need to install them!
 <span class="kw">library</span>(tidyverse)</code></pre></div>
-<pre><code>## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr</code></pre>
-<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
-<pre><code>## filter(): dplyr, stats
-## lag():    dplyr, stats</code></pre>
 <p>Now we’re ready to load in data. The data frame will be our basic way of interacting with everything in this class. The <code>sc</code> data frame contains information from the college scorecard on 127 different colleges and univeristies.</p>
 <p>However, we first need to make sure that R is looking in the right place. When you opened up your project, Rstudio automagically took you to the directory for that project, so you should be ok!.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load in the data

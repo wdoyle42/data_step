@@ -158,15 +158,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>9.2</b> Bivariate Regression</a></li>
 <li class="chapter" data-level="9.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
-<li class="chapter" data-level="9.4" data-path="appendix.html"><a href="appendix.html#list-of-lists-of-datasets"><i class="fa fa-check"></i><b>9.4</b> List of Lists of Datasets</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="appendix.html"><a href="appendix.html#kaggle"><i class="fa fa-check"></i><b>9.4.1</b> Kaggle</a></li>
-<li class="chapter" data-level="9.4.2" data-path="appendix.html"><a href="appendix.html#data-is-plural"><i class="fa fa-check"></i><b>9.4.2</b> Data is Plural</a></li>
-<li class="chapter" data-level="9.4.3" data-path="appendix.html"><a href="appendix.html#tableaus-list-of-sports-datasets"><i class="fa fa-check"></i><b>9.4.3</b> Tableau’s list of sports datasets</a></li>
-<li class="chapter" data-level="9.4.4" data-path="appendix.html"><a href="appendix.html#milne-library-list-of-public-datasets"><i class="fa fa-check"></i><b>9.4.4</b> Milne library list of public datasets</a></li>
-<li class="chapter" data-level="9.4.5" data-path="appendix.html"><a href="appendix.html#data.gov"><i class="fa fa-check"></i><b>9.4.5</b> Data.gov</a></li>
-<li class="chapter" data-level="9.4.6" data-path="appendix.html"><a href="appendix.html#awesome-public-datasets-on-github"><i class="fa fa-check"></i><b>9.4.6</b> Awesome public datasets on GitHub</a></li>
-<li class="chapter" data-level="9.4.7" data-path="appendix.html"><a href="appendix.html#google-bigquery-data"><i class="fa fa-check"></i><b>9.4.7</b> Google BigQuery Data</a></li>
+<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX )Appendix</a><ul>
+<li class="chapter" data-level="9.4" data-path="appendix-appendix.html"><a href="appendix-appendix.html#list-of-lists-of-datasets"><i class="fa fa-check"></i><b>9.4</b> List of Lists of Datasets</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="appendix-appendix.html"><a href="appendix-appendix.html#kaggle"><i class="fa fa-check"></i><b>9.4.1</b> Kaggle</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendix-appendix.html"><a href="appendix-appendix.html#data-is-plural"><i class="fa fa-check"></i><b>9.4.2</b> Data is Plural</a></li>
+<li class="chapter" data-level="9.4.3" data-path="appendix-appendix.html"><a href="appendix-appendix.html#tableaus-list-of-sports-datasets"><i class="fa fa-check"></i><b>9.4.3</b> Tableau’s list of sports datasets</a></li>
+<li class="chapter" data-level="9.4.4" data-path="appendix-appendix.html"><a href="appendix-appendix.html#milne-library-list-of-public-datasets"><i class="fa fa-check"></i><b>9.4.4</b> Milne library list of public datasets</a></li>
+<li class="chapter" data-level="9.4.5" data-path="appendix-appendix.html"><a href="appendix-appendix.html#data.gov"><i class="fa fa-check"></i><b>9.4.5</b> Data.gov</a></li>
+<li class="chapter" data-level="9.4.6" data-path="appendix-appendix.html"><a href="appendix-appendix.html#awesome-public-datasets-on-github"><i class="fa fa-check"></i><b>9.4.6</b> Awesome public datasets on GitHub</a></li>
+<li class="chapter" data-level="9.4.7" data-path="appendix-appendix.html"><a href="appendix-appendix.html#google-bigquery-data"><i class="fa fa-check"></i><b>9.4.7</b> Google BigQuery Data</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -190,13 +190,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">4</span> Working with flat data files</h1>
 <p>Flat data is data that is arranged with one case per row, with one column per variable– more or less. It’s stored in a variety of formats, with different conventions. Our goal is to get it into the most useful format for analysis: what’s known as tidy data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(haven)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;haven&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:forcats&#39;:
-## 
-##     as_factor</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)</code></pre></div>
+<span class="kw">library</span>(haven)
+<span class="kw">library</span>(readxl)</code></pre></div>
 <div id="csv-or-other-delimited-files" class="section level2">
 <h2><span class="header-section-number">4.1</span> CSV or other delimited files</h2>
 <p>We’ll start with a csv file which is among the most common types. CSV stands for _Comma _Separated _Value, meaning that each row is divided into cells by commas. An end of line completes the row.</p>

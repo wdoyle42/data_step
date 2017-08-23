@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="tidy-data.html">
-<link rel="next" href="regression-using-a-binary-outcome.html">
+<link rel="prev" href="scatterplots.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -186,230 +186,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="using-regression-for-prediction" class="section level1">
-<h1><span class="header-section-number">6</span> Using Regression for Prediction</h1>
-<div id="overview" class="section level2">
-<h2><span class="header-section-number">6.1</span> Overview</h2>
-<p>So far, we’ve been using just the simple mean to make predictions. Today, we’ll continue using the simple mean to make predictions, but now in a complicated way. Before, when we calculated conditional means, we did so in certain “groupings” of variables. When we run linear regression, we no longer need to do so. Instead, linear regression allows us to calculate the conditional mean of the outcome at <em>every</em> value of the predictor. If the predictor takes on just a few values, then that’s the number of conditional means that will be calculated. If the predictor is continuous and takes on a large number of values, we’ll still be able to calculate the conditional mean at every one of those values.</p>
-<p>We’re going to be working with expenditure data from the 2012 administration of the consumer expenditure survey. The first bit of code gets the libraries we need, the data we need, and opens up a codebook for the data.</p>
+<div id="appendix-appendix" class="section level1 unnumbered">
+<h1>(APPENDIX )Appendix</h1>
+<div id="list-of-lists-of-datasets" class="section level2">
+<h2><span class="header-section-number">9.4</span> List of Lists of Datasets</h2>
+<div id="kaggle" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Kaggle</h3>
+<p>Kaggle hosts competitions for predicting various outcomes. Companies supply their data to Kaggle and then provide awards for the teams that are best able to predict outcomes. They have a large number of publicly available datasets:</p>
+<p><a href="https://www.kaggle.com/datasets" class="uri">https://www.kaggle.com/datasets</a></p>
 </div>
-<div id="bivariate-regression" class="section level2">
-<h2><span class="header-section-number">6.2</span> Bivariate regression</h2>
-<p>Our first dependent variable will be dining out. Let’s take a look at that variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cex$dine_out)</code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##     0.0    65.0   325.0   468.1   650.0  9100.0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>dine_out))
-gg&lt;-gg+<span class="kw">geom_histogram</span>()
-gg</code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>dine_out))
-gg&lt;-gg+<span class="kw">geom_density</span>()
-gg</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
-<p>Because this variable is pretty non-normally distributed, we may want to think about transforming it. For now, let’s just work with it as-is. Let’s see if people with bigger families spend more on dining out more than those with smaller families. Before, we would have calculated the conditional mean at every level of family size, or in certain groupings of family size. With regression, we simply specify the relationship.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Model 1: simple bivariate regression</span>
-
-mod1&lt;-<span class="kw">lm</span>(dine_out~fam_size,<span class="dt">data=</span>cex) <span class="co">#outcome on left, predictor on right </span>
-
-<span class="kw">summary</span>(mod1)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = dine_out ~ fam_size, data = cex)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -984.2 -384.7 -150.7  162.8 8574.6 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  372.517     13.911   26.78  &lt; 2e-16 ***
-## fam_size      38.230      4.767    8.02 1.24e-15 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 593 on 6822 degrees of freedom
-## Multiple R-squared:  0.00934,    Adjusted R-squared:  0.009195 
-## F-statistic: 64.32 on 1 and 6822 DF,  p-value: 1.237e-15</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1&lt;-<span class="kw">ggplot</span>(cex, <span class="kw">aes</span>(<span class="dt">x=</span>fam_size,<span class="dt">y=</span>dine_out))+<span class="st"> </span><span class="co">#specify data and x and y</span>
-<span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+<span class="st"> </span><span class="co">#specify points</span>
-<span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co">#ask for lm line</span>
-g1</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred1&lt;-<span class="kw">predict</span>(mod1) <span class="co">#predict using data in memory</span>
- 
-rmse1&lt;-<span class="kw">rmse</span>(cex$dine_out-pred1); rmse</code></pre></div>
-<pre><code>## function(error)
-## {
-##   sqrt(mean(error^2))
-## }</code></pre>
-<p>What this shows is that as family size increases, the amount spent on dining out increases. For every additional family member, an additional 38.2303747 is predicted to be spent on dining out. The rmse of 592.9362808 gives us a sense of how wrong the model tends to be when using just this one predictor.</p>
-<p><em>Quick Exercise</em> Run a regression using a different predictor. Calculate rmse and see if you can beat my score.</p>
+<div id="data-is-plural" class="section level3">
+<h3><span class="header-section-number">9.4.2</span> Data is Plural</h3>
+<p>A google docs spreadsheet with links to a huge number of datasets</p>
+<p><a href="https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0" class="uri">https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0</a></p>
 </div>
-<div id="multiple-regression." class="section level2">
-<h2><span class="header-section-number">6.3</span> Multiple Regression.</h2>
-<p>Okay, so we can see that this is somewhat predictive, but we can do better. Let’s add in a second variable: whether or not the family is below the poverty line.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Part 2: Multiple regression</span>
-
-mod2&lt;-<span class="kw">lm</span>(dine_out~fam_size+
-<span class="st">           </span>pov_cym, <span class="co">#can only take on two values</span>
-          <span class="dt">data=</span>cex)
-
-<span class="kw">summary</span>(mod2) </code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = dine_out ~ fam_size + pov_cym, data = cex)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -1005.7  -332.1  -144.6   151.6  8529.2 
-## 
-## Coefficients:
-##                       Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)            114.665     21.129   5.427 5.93e-08 ***
-## fam_size                36.239      4.682   7.740 1.14e-14 ***
-## pov_cymNot in Poverty  311.219     19.458  15.994  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 582.2 on 6821 degrees of freedom
-## Multiple R-squared:  0.04515,    Adjusted R-squared:  0.04487 
-## F-statistic: 161.3 on 2 and 6821 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred2&lt;-<span class="kw">predict</span>(mod2)
-
-<span class="kw">rmse</span>(cex$dine_out-pred2)</code></pre></div>
-<pre><code>## [1] 582.1207</code></pre>
-<p>So, those who are in poverty spend less on dining out. Alert the media!</p>
-<p><em>Quick Exercise</em> Add poverty to your model from above and see what difference it makes. How is your RMSE?</p>
-<p>Maybe it’s the case that those who spend more on groceries dine out less. Let’s find out:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Model 3: predicting dining out using other variables and grocery spending</span>
-
-mod3&lt;-<span class="kw">lm</span>(dine_out~
-<span class="st">           </span>fam_size+
-<span class="st">           </span>pov_cym+
-<span class="st">           </span>grocery,
-           <span class="dt">data=</span>cex)
-
-<span class="kw">summary</span>(mod3)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = dine_out ~ fam_size + pov_cym + grocery, data = cex)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2785.3  -324.8  -125.3   136.9  8570.7 
-## 
-## Coefficients:
-##                         Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)            62.114475  20.949377   2.965  0.00304 ** 
-## fam_size               -4.026819   5.184420  -0.777  0.43735    
-## pov_cymNot in Poverty 257.868962  19.339246  13.334  &lt; 2e-16 ***
-## grocery                 0.138693   0.008306  16.698  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 570.7 on 6820 degrees of freedom
-## Multiple R-squared:  0.08266,    Adjusted R-squared:  0.08225 
-## F-statistic: 204.8 on 3 and 6820 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2&lt;-<span class="kw">ggplot</span>(cex, <span class="kw">aes</span>(<span class="dt">x=</span>grocery,<span class="dt">y=</span>dine_out))+
-<span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+<span class="st"> </span>
-<span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)
-g2</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-<p>Hmm, what happened here?</p>
-<p><em>Quick Exercise</em> Use a subset of the cex data with reasonable bounds on both dining out and grocery expenditures. See if the results hold.</p>
+<div id="tableaus-list-of-sports-datasets" class="section level3">
+<h3><span class="header-section-number">9.4.3</span> Tableau’s list of sports datasets</h3>
+<p><a href="https://public.tableau.com/s/blog/2014/03/where-find-sports-data" class="uri">https://public.tableau.com/s/blog/2014/03/where-find-sports-data</a></p>
 </div>
-<div id="transformations" class="section level2">
-<h2><span class="header-section-number">6.4</span> Transformations</h2>
-<p>The big issue as you can see with this data is that the outcome variable isn’t normally distributed: most people spend very little on dining out, while some people spend quite a lot. In situations like this, which are VERY common when dealing with monetary values, we want to take the natural log of the outcome variable. A natural log is the power by which we would have to raise <span class="math inline">\(e\)</span>, Euler’s constant, to be that value: <span class="math inline">\(e^{ln(x)}=x\)</span>, or <span class="math inline">\(ln(e^x)=x\)</span>.</p>
-<p>Economists just basically take the natural log of everything that’s denominated in dollar terms, which you probably should do as well. You’ll notice in the equations below that I specify the <code>log()</code> of both dining out and grocery spending.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Part 4: Working with transformations</span>
-mod4&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(dine_out<span class="dv">+1</span>)~<span class="st"> </span><span class="co">#log of dining out, plus one for zeros</span>
-<span class="st">           </span>+<span class="kw">log</span>(grocery<span class="dv">+1</span>)+<span class="st"> </span><span class="co">#log of groceries, plus one again</span>
-<span class="st">           </span>pov_cym+<span class="st"> </span><span class="co">#poverty</span>
-<span class="st">           </span>fam_size <span class="co">#family size</span>
-         ,<span class="dt">data=</span>cex)
+<div id="milne-library-list-of-public-datasets" class="section level3">
+<h3><span class="header-section-number">9.4.4</span> Milne library list of public datasets</h3>
+<p><a href="http://libguides.geneseo.edu/c.php?g=67454&amp;p=434785#s-lg-box-1300425" class="uri">http://libguides.geneseo.edu/c.php?g=67454&amp;p=434785#s-lg-box-1300425</a></p>
+</div>
+<div id="data.gov" class="section level3">
+<h3><span class="header-section-number">9.4.5</span> Data.gov</h3>
+<p>Al publicly available government datasets.</p>
+<p><a href="https://www.data.gov/" class="uri">https://www.data.gov/</a></p>
+</div>
+<div id="awesome-public-datasets-on-github" class="section level3">
+<h3><span class="header-section-number">9.4.6</span> Awesome public datasets on GitHub</h3>
+<p><a href="https://github.com/caesar0301/awesome-public-datasets#awesome-public-datasets" class="uri">https://github.com/caesar0301/awesome-public-datasets#awesome-public-datasets</a></p>
+</div>
+<div id="google-bigquery-data" class="section level3">
+<h3><span class="header-section-number">9.4.7</span> Google BigQuery Data</h3>
+<p><a href="https://cloud.google.com/bigquery/public-data/" class="uri">https://cloud.google.com/bigquery/public-data/</a></p>
 
-<span class="kw">summary</span>(mod4)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = log(dine_out + 1) ~ +log(grocery + 1) + pov_cym + 
-##     fam_size, data = cex)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -5.8373 -0.4087  0.9051  1.5967  7.1674 
-## 
-## Coefficients:
-##                       Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)            0.39857    0.22933   1.738   0.0823 .  
-## log(grocery + 1)       0.41893    0.03538  11.842   &lt;2e-16 ***
-## pov_cymNot in Poverty  1.57931    0.08572  18.425   &lt;2e-16 ***
-## fam_size               0.01008    0.02198   0.459   0.6464    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 2.504 on 6820 degrees of freedom
-## Multiple R-squared:  0.08598,    Adjusted R-squared:  0.08558 
-## F-statistic: 213.8 on 3 and 6820 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred4&lt;-(<span class="kw">predict</span>(mod4))
 
-<span class="kw">exp</span>(<span class="kw">rmse</span>(<span class="kw">log</span>(cex$dine_out<span class="dv">+1</span>)-pred4))</code></pre></div>
-<pre><code>## [1] 12.22413</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g4&lt;-<span class="kw">ggplot</span>(cex, <span class="kw">aes</span>(<span class="dt">x=</span>grocery,<span class="dt">y=</span><span class="kw">exp</span>(pred4),<span class="dt">color=</span>pov_cym))
-g4&lt;-g4+<span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)
-
-g4</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
-<p>When calculating RMSE, I need to work with it in log format. The <code>prediction</code> command will give me back a prediction in log format as well. I take the difference between the two in log format, then exponentiate using the <code>exp</code> command, which means raising <span class="math inline">\(e\)</span> to the power of <span class="math inline">\(x\)</span>, <span class="math inline">\(e^x\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Part 5: Adding income </span>
-mod5&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(dine_out<span class="dv">+1</span>)~
-<span class="st">           </span>+<span class="kw">log</span>(grocery<span class="dv">+1</span>)+
-<span class="st">           </span>pov_cym+
-<span class="st">           </span>fam_size+
-<span class="st">           </span>inclass
-         ,<span class="dt">data=</span>cex)
-
-<span class="kw">summary</span>(mod5)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = log(dine_out + 1) ~ +log(grocery + 1) + pov_cym + 
-##     fam_size + inclass, data = cex)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -6.1979 -0.5699  0.7948  1.5897  6.0008 
-## 
-## Coefficients:
-##                       Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)            1.70238    0.25098   6.783 1.28e-11 ***
-## log(grocery + 1)       0.29036    0.03497   8.303  &lt; 2e-16 ***
-## pov_cymNot in Poverty  0.37223    0.14906   2.497 0.012542 *  
-## fam_size              -0.12712    0.02304  -5.518 3.56e-08 ***
-## inclass02             -0.06889    0.20307  -0.339 0.734425    
-## inclass03             -0.57489    0.19705  -2.917 0.003540 ** 
-## inclass04             -0.18314    0.21770  -0.841 0.400237    
-## inclass05              0.30874    0.21863   1.412 0.157961    
-## inclass06              0.80404    0.23002   3.496 0.000476 ***
-## inclass07              0.83575    0.23631   3.537 0.000408 ***
-## inclass08              1.14419    0.23107   4.952 7.53e-07 ***
-## inclass09              1.97654    0.22740   8.692  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 2.421 on 6812 degrees of freedom
-## Multiple R-squared:  0.1468, Adjusted R-squared:  0.1455 
-## F-statistic: 106.6 on 11 and 6812 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred5&lt;-(<span class="kw">predict</span>(mod5))
-
-<span class="kw">exp</span>(<span class="kw">rmse</span>(<span class="kw">log</span>(cex$dine_out<span class="dv">+1</span>)-pred5 ))</code></pre></div>
-<pre><code>## [1] 11.23037</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g5&lt;-<span class="kw">ggplot</span>(cex, <span class="kw">aes</span>(<span class="dt">x=</span>inclass,<span class="dt">y=</span>dine_out,<span class="dt">group=</span><span class="dv">1</span>))+
-<span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+
-<span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)
-g5</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+</div>
 </div>
 </div>
             </section>
@@ -417,8 +230,8 @@ g5</code></pre></div>
           </div>
         </div>
       </div>
-<a href="tidy-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regression-using-a-binary-outcome.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="scatterplots.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
