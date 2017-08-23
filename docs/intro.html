@@ -25,7 +25,7 @@
 <meta name="author" content="Will Doyle">
 
 
-<meta name="date" content="2017-08-15">
+<meta name="date" content="2017-08-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -158,6 +158,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.2" data-path="scatterplots.html"><a href="scatterplots.html#bivariate-regression-1"><i class="fa fa-check"></i><b>9.2</b> Bivariate Regression</a></li>
 <li class="chapter" data-level="9.3" data-path="scatterplots.html"><a href="scatterplots.html#multiple-regression"><i class="fa fa-check"></i><b>9.3</b> Multiple Regression</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a><ul>
+<li class="chapter" data-level="9.4" data-path="appendix.html"><a href="appendix.html#list-of-lists-of-datasets"><i class="fa fa-check"></i><b>9.4</b> List of Lists of Datasets</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="appendix.html"><a href="appendix.html#kaggle"><i class="fa fa-check"></i><b>9.4.1</b> Kaggle</a></li>
+<li class="chapter" data-level="9.4.2" data-path="appendix.html"><a href="appendix.html#data-is-plural"><i class="fa fa-check"></i><b>9.4.2</b> Data is Plural</a></li>
+<li class="chapter" data-level="9.4.3" data-path="appendix.html"><a href="appendix.html#tableaus-list-of-sports-datasets"><i class="fa fa-check"></i><b>9.4.3</b> Tableau’s list of sports datasets</a></li>
+<li class="chapter" data-level="9.4.4" data-path="appendix.html"><a href="appendix.html#milne-library-list-of-public-datasets"><i class="fa fa-check"></i><b>9.4.4</b> Milne library list of public datasets</a></li>
+<li class="chapter" data-level="9.4.5" data-path="appendix.html"><a href="appendix.html#data.gov"><i class="fa fa-check"></i><b>9.4.5</b> Data.gov</a></li>
+<li class="chapter" data-level="9.4.6" data-path="appendix.html"><a href="appendix.html#awesome-public-datasets-on-github"><i class="fa fa-check"></i><b>9.4.6</b> Awesome public datasets on GitHub</a></li>
+<li class="chapter" data-level="9.4.7" data-path="appendix.html"><a href="appendix.html#google-bigquery-data"><i class="fa fa-check"></i><b>9.4.7</b> Google BigQuery Data</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -205,7 +216,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="installing-git" class="section level2">
 <h2><span class="header-section-number">1.4</span> Installing git</h2>
-<p><code>git</code> is a version control program. A standard problem in programming is how to track the changes that have been made to a project. These challenges are well-known to anyone who has had to work on a complex document, particularly with collaborators. Because these problems are particularly severe in programming, they developed a set of tools called version control. These will keep track of every change you make to a file, and record why you made the change.</p>
+<p><code>git</code> is a version control program. A standard problem in programming is how to track the changes that have been made to a project. These challenges are well-known to anyone who has had to work on a complex document, particularly with collaborators. Because these problems are particularly severe in programming, they developed a set of tools called version control. These will keep track of changes you make to a file, and record why you made the change.</p>
 <p>Download git here and accept all of the defaults on installation: <a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a></p>
 </div>
 <div id="getting-set-up-on-github" class="section level2">
@@ -239,7 +250,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">1.10</span> Linking Github and Rstudo</h2>
 <p>From RStudio, you’ll need to click New Project–Existing Directory– then choose the directory where you just downloaded the gihub repository.</p>
 <p>Name the project “central”. Choose a good spot on your computer for the project files– wherever you usually keep class directories. This project will be the only place you need to work for this class the entire semester.</p>
-<p>Once you click “create project,” you should see a “git” tab in your environment. Open up the file named <code>college.Rmd</code> and take a look.</p>
+<p>Once you click “create project,” you should see a “git” tab in your environment. Open up the file named <code>01-intro.Rmd</code> and take a look.</p>
 </div>
 <div id="yes-we-code-running-r-code" class="section level2">
 <h2><span class="header-section-number">1.11</span> Yes We Code! Running R Code</h2>
@@ -248,11 +259,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="rmd-files" class="section level2">
 <h2><span class="header-section-number">1.12</span> .Rmd files</h2>
 <p>Open the <code>01-Intro.Rmd</code> file. In Rstudio, go to File–&gt;Open, then find the <code>01-Intro.Rmd</code> file in the directory.</p>
-<p>.Rmd files will be the only file format we work in this class. .Rmd files contain three basic elements:</p>
+<p>.Rmd files will be the only file format we work in this class. .Rmd files contain two basic elements:</p>
 <ol style="list-style-type: decimal">
 <li>Script that can be interpreted by R.</li>
-<li>Output generated by R, including tables and figures.<br />
-</li>
 <li>Text that can be read by humans.</li>
 </ol>
 <p>From a .Rmd file you can generate html documents, pdf documents, word documents, slides . . . lots of stuff. All class notes will be in .Rmd. All assignments will be turned in as .Rmd files, and your final project? You guessed it, .Rmd.</p>
@@ -261,14 +270,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To run the code below in R, you can:</p>
 <ul>
 <li>Press the “play” button next to the code chunk</li>
-<li>In OS X, place the cursor</li>
+<li>In OS X, place the cursor inside the code chunk and hit Command+Enter. In Windows, hit Control+Enter</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Clear environment
 <span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())
 ## Get necessary libraries-- won&#39;t work the first time, because you need to install them!
 <span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
 <p>Now we’re ready to load in data. The data frame will be our basic way of interacting with everything in this class. The <code>sc</code> data frame contains information from the college scorecard on 127 different colleges and univeristies.</p>
-<p>However, we first need to make sure that R is looking in the right place. When you opened up your project, Rstudio automagically took you to the directory for that project. But because we keep lessons in a separate directory, we need to</p>
+<p>However, we first need to make sure that R is looking in the right place. When you opened up your project, Rstudio automagically took you to the directory for that project, so you should be ok!.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load in the data
 <span class="kw">load</span>(<span class="st">&quot;college.Rdata&quot;</span>)</code></pre></div>
 <p>Here are the variables in the <code>college.Rdata</code> dataset:</p>
@@ -284,8 +302,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>debt_mdn: Median debt of graduates</p>
 <p>md_earn_ne_pg: Earnings of graduates who are not enrolled in higher education, six years after graduation</p>
 <p><em>Looking at datasets</em></p>
-<p>We can look at the first few rows and columns of <code>sc</code> by typing in the data name.</p>
-<p>We can look at the whole dataset using View.</p>
+<p>We can look at the first few rows and columns of <code>sc</code> by typing in the data name. We can look at the whole dataset using View.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## What does this data look like? Look at the first few rows, first few variables
 sc</code></pre></div>
 <pre><code>## # A tibble: 127 × 9
