@@ -25,7 +25,7 @@
 <meta name="author" content="Will Doyle">
 
 
-<meta name="date" content="2017-08-23">
+<meta name="date" content="2017-09-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,6 +47,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.7/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 <style type="text/css">
@@ -189,8 +193,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">4</span> Working with flat data files</h1>
 <p>Flat data is data that is arranged with one case per row, with one column per variable– more or less. It’s stored in a variety of formats, with different conventions. Our goal is to get it into the most useful format for analysis: what’s known as tidy data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(haven)
-<span class="kw">library</span>(readxl)</code></pre></div>
+<span class="kw">library</span>(haven)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;haven&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:forcats&#39;:
+## 
+##     as_factor</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)</code></pre></div>
 <div id="csv-or-other-delimited-files" class="section level2">
 <h2><span class="header-section-number">4.1</span> CSV or other delimited files</h2>
 <p>We’ll start with a csv file which is among the most common types. CSV stands for _Comma _Separated _Value, meaning that each row is divided into cells by commas. An end of line completes the row.</p>

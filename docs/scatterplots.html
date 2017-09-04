@@ -25,7 +25,7 @@
 <meta name="author" content="Will Doyle">
 
 
-<meta name="date" content="2017-08-23">
+<meta name="date" content="2017-09-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,6 +47,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.7/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 <style type="text/css">
@@ -204,13 +208,13 @@ g1&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
 g1&lt;-g1+<span class="kw">geom_point</span>() <span class="co"># Add points at x and y</span>
 g1</code></pre></div>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>This first graphic shows the basic problem with the data, which is the highly non-normal shape of the outcome variable. No matter! We’ll keep moving forward. The next line of code adds a layer with a regression line to the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1&lt;-g1+<span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)
 g1</code></pre></div>
 <pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>It’s also really hard to see. We can use conditional means to help out with that problem. Let’s get the average amount of grocery spending at every percentile level of <code>inc_rank</code>. Notice the use of <code>round</code> to get income percentiles that are at two digits only.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cex_sum&lt;-cex%&gt;%<span class="kw">mutate</span>(<span class="dt">inc_rank_r=</span><span class="kw">round</span>(inc_rank))%&gt;%<span class="kw">group_by</span>(inc_rank_r)%&gt;%<span class="kw">summarize</span>(<span class="dt">groc_mean=</span><span class="kw">mean</span>(grocery))
 
@@ -220,13 +224,13 @@ g1a&lt;-g1a+<span class="kw">geom_point</span>()
 
 g1a</code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <p>We can add a regression line to this simpler data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1a&lt;-g1a+<span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co"># Add a line</span>
 g1a</code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>As we figured out in class last week, a simple line plot doesn’t really do it. We need to transform that dependent variable. Luckily, ggplot has this kind of transformation built in.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g1&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>cex,
            <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>))
@@ -240,7 +244,7 @@ g1&lt;-g1+<span class="kw">ylab</span>(<span class="st">&quot;Grocery Spending&q
 g1</code></pre></div>
 <pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>Notice how different the steps are on the y axis now. But this shows that our line actually fits the data much better once we work on the log scale. We’re now ready to go ahead and run our first model based on what we’ve learned.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#First model</span>
 
@@ -277,7 +281,7 @@ g2&lt;-g2+<span class="kw">scale_y_continuous</span>(<span class="dt">trans=</sp
 g2&lt;-g2+<span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">1</span>)
 g2</code></pre></div>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>Our first graphic is a bit complex, but shows that those in the “0” category, with no kids, have consistently lower spending on groceries across income levels. So let’s drop that group and see what the graphic looks like for those with at least one kid of any age.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g2a&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span><span class="kw">filter</span>(cex,<span class="kw">as.character</span>(cex$childage)!=<span class="st">&quot;0&quot;</span>),
             <span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>(grocery_food<span class="dv">+1</span>),<span class="dt">color=</span>childage)
@@ -287,7 +291,7 @@ g2a&lt;-g2a+<span class="kw">geom_point</span>(<span class="dt">size=</span><spa
 g2a&lt;-g2a+<span class="kw">scale_colour_hue</span>(<span class="dt">l=</span><span class="dv">50</span>) <span class="co">#Darker palette</span>
 g2a</code></pre></div>
 <pre><code>## Warning: Removed 1212 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>Notice the higher spending levels at every income level among those in the 4 and 5 categories.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Model 2: with kids</span>
 
@@ -371,7 +375,7 @@ g3</code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
 <pre><code>## Warning: Removed 1134 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <p>As we add more variables to the model, it can get more difficult to plot relationships. One very good option is to plot lines based on a hypothetical set of data. Below, I create a hypothetical set of data that include values of income across the range of income, and includes values for every level of <code>childage</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Prediction, then plotting</span>
 
@@ -400,7 +404,7 @@ hypo.data$groc.upr&lt;-<span class="kw">exp</span>(hypo.data$upr) <span class="c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g4&lt;-<span class="kw">ggplot</span>(<span class="dt">data=</span>hypo.data,<span class="kw">aes</span>(<span class="dt">x=</span>inc_rank,<span class="dt">y=</span>groc.p,<span class="dt">color=</span><span class="kw">fct_reorder</span>(<span class="dt">f=</span>childage,-groc.p))) <span class="co">#notice color</span>
 g4&lt;-g4+<span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm,<span class="dt">se=</span><span class="ot">FALSE</span>)
 g4</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-48-1.png" width="672" /> To show this in the data we can break it out for every type of child age grouping.</p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-55-1.png" width="672" /> To show this in the data we can break it out for every type of child age grouping.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Resort child age for graphic
 
 cex&lt;-cex%&gt;%<span class="kw">mutate</span>(<span class="dt">childage=</span><span class="kw">fct_reorder</span>(<span class="dt">f=</span>childage,-grocery_food))
@@ -419,7 +423,7 @@ g5</code></pre></div>
 ## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
 <pre><code>## Warning: Removed 1190 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1134 rows containing missing values (geom_point).</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p><em>(Not so) Quick Exercise</em> Run a different model, this time using <code>fam_type</code> as a factor variable. Plot the estimated relationship between income rank and food spending for each family type.</p>
 
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Will Doyle">
 
 
-<meta name="date" content="2017-08-23">
+<meta name="date" content="2017-09-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,6 +47,10 @@
 
 
 
+<script src="libs/htmlwidgets-0.7/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
 
 
 <style type="text/css">
@@ -202,11 +206,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 gg&lt;-gg+<span class="kw">geom_histogram</span>()
 gg</code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="data_step_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg&lt;-<span class="kw">ggplot</span>(cex,<span class="kw">aes</span>(<span class="dt">x=</span>dine_out))
 gg&lt;-gg+<span class="kw">geom_density</span>()
 gg</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
 <p>Because this variable is pretty non-normally distributed, we may want to think about transforming it. For now, let’s just work with it as-is. Let’s see if people with bigger families spend more on dining out more than those with smaller families. Before, we would have calculated the conditional mean at every level of family size, or in certain groupings of family size. With regression, we simply specify the relationship.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Model 1: simple bivariate regression</span>
 
@@ -235,7 +239,7 @@ mod1&lt;-<span class="kw">lm</span>(dine_out~fam_size,<span class="dt">data=</sp
 <span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+<span class="st"> </span><span class="co">#specify points</span>
 <span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="co">#ask for lm line</span>
 g1</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred1&lt;-<span class="kw">predict</span>(mod1) <span class="co">#predict using data in memory</span>
  
 rmse1&lt;-<span class="kw">rmse</span>(cex$dine_out-pred1); rmse</code></pre></div>
@@ -315,7 +319,7 @@ mod3&lt;-<span class="kw">lm</span>(dine_out~
 <span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+<span class="st"> </span>
 <span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)
 g2</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>Hmm, what happened here?</p>
 <p><em>Quick Exercise</em> Use a subset of the cex data with reasonable bounds on both dining out and grocery expenditures. See if the results hold.</p>
 </div>
@@ -360,7 +364,7 @@ mod4&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(dine_out<span cl
 g4&lt;-g4+<span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)
 
 g4</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>When calculating RMSE, I need to work with it in log format. The <code>prediction</code> command will give me back a prediction in log format as well. I take the difference between the two in log format, then exponentiate using the <code>exp</code> command, which means raising <span class="math inline">\(e\)</span> to the power of <span class="math inline">\(x\)</span>, <span class="math inline">\(e^x\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Part 5: Adding income </span>
 mod5&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(dine_out<span class="dv">+1</span>)~
@@ -408,7 +412,7 @@ mod5&lt;-<span class="kw">lm</span>(<span class="kw">log</span>(dine_out<span cl
 <span class="st">           </span><span class="kw">geom_point</span>(<span class="dt">shape=</span><span class="dv">1</span>)+
 <span class="st">           </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm)
 g5</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 </div>
 <div id="regression-using-a-binary-outcome" class="section level2">
 <h2><span class="header-section-number">5.5</span> Regression using a binary outcome</h2>
@@ -470,7 +474,7 @@ mod6&lt;-<span class="kw">lm</span>(cigs~educ_ref+
 <span class="st">  </span><span class="kw">geom_jitter</span>()
 
 g4</code></pre></div>
-<p><img src="data_step_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="data_step_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 </div>
 <div id="thinking-about-regression-for-prediction" class="section level2">
 <h2><span class="header-section-number">5.6</span> Thinking about regression for prediction</h2>
