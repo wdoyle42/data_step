@@ -111,7 +111,9 @@ rm(list=ls())
 library(tidyverse)
 ```
 
-Now we're ready to load in data. The data frame will be our basic way of interacting with everything in this class. The `sc` data frame contains information from the college scorecard on 127 different colleges and univeristies. 
+
+## Loading Data
+Now we're ready to load in data. The data frame will be our basic way of interacting with everything data-related in this class. The `sc` data frame contains information from the college scorecard on 127 different colleges and univeristies.  
 
 However, we first need to make sure that R is looking in the right place. When you opened up your project, Rstudio automagically took you to the directory for that project, so you should be ok, but we should make sure to point R to the right place. This is called setting the working directory, and can be done either by using the command `setwd` or in RStudio by going to "Session-->Set Working Directory-->Choose Directory." Choose the directory where the file currently resides on your computer. Make sure to always set the working directory at the beginning of each session---not doing so causes a lot of headaches for new users. 
 
@@ -144,7 +146,7 @@ debt_mdn: Median debt of graduates
 
 md_earn_ne_pg: Earnings of graduates who are not enrolled in higher education, six years after graduation
 
-*Looking at datasets*
+## Looking at datasets
 
 We can look at the first few rows and columns of `sc` by typing in the data name. 
  
@@ -152,16 +154,18 @@ We can look at the first few rows and columns of `sc` by typing in the data name
 sc
 ```
 
+The name "sc" is arbitrary (it's called that because it's ScoreCard data). It simply refers to an object in the curent environment which happens to be a data frame.
+
 We can look at the whole dataset using View.
 ```{r}
-View(sc)
+#View(sc)
 ```
 
 
 You'll notice that this data is arranged in a rectangular format, with each row showing a different college, and each column representing a different characteristic of that college. Datasets are always structured this way--- cases (or units) will form the rows, and the characteristics of those cases-- or variables--- will form the columns. Unlike working with spreadsheets, this structure is always assumed for datasets. 
 
 
-*Filter, Select, Arrange*
+## Filter, Select, Arrange
 
 In exploring data, many times we want to look at smaller parts of the dataset. There are three commands we'll use today that help with this. 
 
@@ -177,46 +181,82 @@ Let's grab just the data for Vanderbilt, then look only at the average test scor
 
 ```{r filter_select_arrange}
 ## Where are we?
-sc%>%filter(instnm=="Vanderbilt University")
+sc%>%
+  filter(instnm=="Vanderbilt University")
 ```
+
+Many times, though we don't want to see everything, we just want to choose a few variables. `select` allows us to select only the variables we want. In this case, the institution name, its admit rate, and the average SAT scores of entering students. 
+```{r}
+sc%>%
+  filter(instnm=="Vanderbilt University")%>%
+  select(instnm,adm_rate,sat_avg )
+```
+
+`filter` takes logical tests as its argument. The code `insntnm=="Vanderbilt University"` is a logical statement that will be true of just one case in the dataset-- when institution name is Vanderbilt University. The `==` is a logical test, asking if this is equal to that. Other common logical and relational operators for R include
+
+-`>`, `<`: greater than, less than
+-`>=`, `<=`: greater than or equal to, less than or equal to
+- `!` :not, as in `!=` not equal to 
+- `&` AND
+- `|` OR
+
+Next, we can use `filter` to look at colleges with low admissions rates, say less than 10% ( or .1 in the proportion scale used in the dataset). 
 
 ```{r}
-sc%>%filter(instnm=="Vanderbilt University")%>%select(instnm,adm_rate,sat_avg )
+sc%>%
+  filter(adm_rate<.1)%>%
+  select(instnm,adm_rate,sat_avg)%>%
+  arrange(sat_avg,adm_rate)
 ```
 
-Next, we can use `filter` tonlook at colleges with low admissions rates, say less than 10% ( or .1 in the proportion scale used in the dataset)
-## Just colleges with low admit rates: show admit rate and sat scores, arrange in a pleasing way
-sc%>%filter(adm_rate<.1)%>%select(instnm,adm_rate,sat_avg)%>%arrange(sat_avg,adm_rate)
 
-## Just colleges with low admit rates: order by sat scores (- sat_avg gives descending)
-sc%>%filter(adm_rate<.1)%>%select(instnm,adm_rate,sat_avg)%>%arrange(-sat_avg)
-  
-## New cut
-sc%>%filter(adm_rate>.3)%>%select(instnm,sat_avg,md_earn_wne_p6,stabbr)%>%arrange(stabbr,-sat_avg)%>%print(n=100)
+Now let's look at colleges with low admit rates, and then order the results by sat scores. Putting the negative sign in front of `sat_avg` gives the results in descending order (`-sat_avg`).
+
+```{r}
+sc%>%
+  filter(adm_rate<.1)%>%
+  select(instnm,adm_rate,sat_avg)%>%
+  arrange(-sat_avg)
+```
+
+And one last operation: all colleges that admit between 20 and 30 percent of students, looking at their SAT scores, earnings of attendees six years letter, and what state they are in, then arranging by state, and then SAT score. 
+```{r}
+sc%>%
+  filter(adm_rate>.2&adm_rate<.3)%>%
+  select(instnm,sat_avg,md_earn_wne_p6,stabbr)%>%
+  arrange(stabbr,-sat_avg)%>%
+  print(n=20)
 ```
 
 *Quick Exercise*
 Choose a different college and two different things about that college. 
 
-*Summarizing Data*
+## Summarizing Data*
+
+To summarize data, we use the summarize command. Inside that command, we tell R two things: what to call the new object (a data frame, really) that we're creating, and what numerical summary we would like. The code below summarizes median debt for the colleges in the dataset by calculating the average of median debt for all institutions.
 
 ```{r summarize}
-## What's the average median debt?
-sc%>%summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
+sc%>%
+  summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
 ```
+
 *Quick Exercise*
 Summarize the average entering SAT scores in this dataset. 
 
-*Combining Commands*
-We can also combine commands, so that summaries are done on only a part of the dataset. Below, I summarize median debt for selective schools, and not very selective schools.  
+## Combining Commands
+We can also combine commands, so that summaries are done on only a part of the dataset. Below, we summarize median debt for selective schools, and not very selective schools.  
 
 ```{r combining commands}
-## What's the average median debt for very selective schools?
-sc%>%filter(adm_rate<.1)%>%summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
+sc%>%
+  filter(adm_rate<.1)%>%
+  summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
+```
 
-## And for not very selective schools?
-sc%>%filter(adm_rate>.3)%>%summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
-
+What about for not very selective schools?
+```{r}
+sc%>%
+  filter(adm_rate>.3)%>%
+  summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
 ```
 
 *Quick Exercise* Calculate average earnings for schools where SAT>1200
@@ -225,69 +265,79 @@ sc%>%filter(adm_rate>.3)%>%summarize(mean_debt=mean(debt_mdn,na.rm=TRUE))
 Another powerful tool is being able to calculate characteristics for various groups. For example, what are the average earnings for the three different types of colleges (public, private non-profit, private for-profit) in the dataset?
 
 ```{r grouping}
-# 
-# sc%>%group_by(control)
-# %>%
-#   summarize(mean_earnings=mean(md_earn_wne_p6))
-# 
-# sc%>%group_by(control)%>%
-#   summarize(mean_debt=mean(debt_mdn))
-
+sc%>%
+  group_by(control)%>%
+  summarize(mean_earnings=mean(md_earn_wne_p6))
+```
+ 
+What about debt by type of college?  
+```{r}
+sc%>%
+  group_by(control)%>%
+  summarize(mean_debt=mean(debt_mdn))
 ```
 
+*Quick exercise*  Calculate average admission rate by type of college. 
+
 *Plotting Data*
-The last basic tool for looking at a dataset is plotting the data. 
+The last basic tool for looking at a dataset is plotting the data. The code below creates a scatterplot of admission rates by average SAT scores
 
 ```{r plotting}
-## Plotting: bivariate
 gg<-ggplot(data=sc,aes(x=sat_avg,y=adm_rate))
 gg<-gg+geom_point()
 gg<-gg+geom_smooth()
 gg
-
-## Univariate descriptives
-
-gg<-ggplot(data=sc,aes(adm_rate))
-gg<-gg+geom_density()
-gg
 ```
 
-*Quick exercise* Replicate the above plots, but put cost of attendance on the y axis. 
-
+*Quick exercise* Replicate the above plots, but put cost of attendance `costt4_a` on the y axis. 
 
 ## Github: save, stage, commit, push
 
-When working with files in your directory, there are three basic steps you can take when using Git as your version control. 
+When working with files in your directory, there are several basic steps you can take when using Git as your version control. 
+
+- You should pull at the beginning of every session. You can do this by clicking pull--the down arrrow-- in the upper right hand corner of the git tab in RStudio.
 
 - Saving the file means it is only available to you, on your computer. You should save files as you are working on them. 
 
 - Staging the file means that you would like git (and github) to keep track of the changes you're making to the file. Stage the file by clicking the "staged" box next to it in the Git tab in Rstudio.
 
-- Committing means that you would like to keep the version of the file you generated. Think of this like emailing it to group members. It doesn't mean that it's done, but it does mean it's in a state that you would like to have a record of as you move forward. To commit a file in Rstudio, click the "commit" button. You will be prompted to add a commit message. There's actually quite a lot of thought about what goes into a commit message. The best idea for now is simply to state why you did what you did, and avoid profanity or any demeaning language. 
+- Committing means that you would like to keep the version of the file you generated. Think of this like saving a new version of the file. It doesn't mean that it's done, but it does mean it's in a state that you would like to have a record of as you move forward. To commit a file in Rstudio, click the "commit" button. You will be prompted to add a commit message. There's actually quite a lot of thought about what goes into a commit message. The best idea for now is simply to state why you did what you did, and avoid profanity or any demeaning language. 
 
-- Pushing means that you will send the file and the record of all of the changes made to the file to GitHub. To push, click the "push" button in the Git tab in Rstudio.  You should do this everytime you finish a working session, at an absolute minimum. 
+- Pushing means that you will send the file and the record of all of the changes made to the file to GitHub. Think of this like emailing it to group members. To push, click the "push" button in the Git tab in Rstudio.  You should do this everytime you finish a working session, at an absolute minimum. 
 
-## Your first commit: `hello_world.Rmd`
+So every session should go like this:
 
-For today, I want you to create a file called `01-assignment_<lastname>.Rmd` in your github repo for assignments. It should contain the following elements:
+pull-->do work-->save-->stage(if new file)-->commit
+
+If you'd like you can also use terminal commands to accomplish the same things. Many people (including us) find terminal commands easier to work with. 
+
+- Pull: `git pull`
+- Stage: `git add <filenames>`
+- Committ: `git commit -m "<your message here>"`
+- Push: git push
+
+By far the most useful guide to working with R and git/GitHub is [https://happygitwithr.com/](Jenny Bryan's guide).
+
+## Exercises:
+
+Create a file called `01-assignment_<lastname>.Rmd` in your GitHub repo for assignments. It should contain the following elements:
 
 1. A sentence that says "Hello, World"
+
 2. R output that summarizes one of the variables in the `colllege.Rdata` dataset
 3. R output that shows a scatterplot for two of the variables in the `college.Rdata` dataset. 
 
-Lucky for you this is is also your first assignment! Submit it under assignments, using the format `01-assignment_<lastname>.Rmd`. All assignments should be turned in using this format. Since my last name is Doyle, I would use `01-assignment_doyle.Rmd` as my file name. Unless your name is also Doyle, you should use a different name. 
-
 *Stretch Items*
 
-If you have extra time, you can do the following:
+4. Calculate the average earnings for individuals at the most selective colleges, then compare that with individuals at the least selective colleges in the dataset. 
 
-1. Calculate the average earnings for individuals at the most selective colleges, then compare that with individuals at the least selective colleges in the dataset. 
+5. Find a way to determine whether colleges with very high SAT scores tend to be larger or smaller than colleges with low SAT scores. 
 
-2. Find a way to determine whether colleges with very high SAT scores tend to be larger or smaller than colleges with low SAT scores. 
+6. Plot the relationship between cost and debt. What do you see? Does this surprise you?
 
-3. Plot the relationship between cost and debt. What do you see? Does this surprise you?
+7. Now, provide separate plots for cost and debt by control of the institution. 
 
-4. Now, provide separate plots for cost and debt by control of the institution. 
+ Submit it under assignments, using the format `01-assignment_<lastname>.Rmd`. All assignments should be turned in using this format. 
 
 Save, commit and push the assignment file to the assignments directory. 
 
