@@ -1,6 +1,6 @@
 --- 
-title: "Data Science in Education: A  Step-by-Step Guide"
-author: "Will Doyle"
+title: "Data Science in Education: A Step-by-Step Guide"
+author: "William R. Doyle and Benjamin T. Skinner"
 date: "`r Sys.Date()`"
 #site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,46 +9,88 @@ bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: wdoyle42/data_step
-description: "Doing data science: a step-by-step guide"
 ---
 
 # Preface {-}
 
-We have entered a time in which vast amounts of data are more widely
-available than ever before. At the same time, a new set of tools has
-been developed to analyze this data and provide decision makers with
-information to help them accomplish their goals. Those who engage with
-data and interpret it for organizational leaders have taken to calling
-themselves data scientists, and their craft data science. Other terms
-that have come into vogue are "Big Data," "Predictive Analytics" and
-"Data Mining." These can seem to be mysterious domains. The point of
-this class is to demystify much of this endeavor for individuals who
-will be organizational leaders.
+Vast amounts of data are more widely available than ever before and
+with them a growing expectation that they be used to inform
+decision-making. Though terms like _big data_, _predictive analytics_,
+and _data mining_ might generally be associated with big tech firms
+that run social media sites and online shopping platforms, educators
+at all levels are also increasingly tasked with using data to help
+them improve student achievement and support institutional
+growth. Test scores, demographic characteristics of the student body,
+finance balance sheets, and measures of access to community resources
+are just a few example sources of information that educators may turn
+to when making a _data-driven decision_.
 
-The class is structured around developing students' skills in three
-areas: getting data, analyzing data to make predictions, and
-presenting the results of analysis. For each area, the subtopics are
-as follows:
+Yet while data-driven decision-making sounds good in practice (if not
+a little buzz-wordy), how one actually translates data into an
+actionable decision can seem mysterious. Sure, one can try to get the
+gist of the data by perusing its various files and spreadsheets, but
+this becomes a herculean effort for even a moderately sized data set
+and impossible to scale. It also likely introduces bias since the
+natural human impulse is to find patterns where they don't exist or
+gravitate towards evidence that confirms what the gut already believed
+was true.
 
-Getting Data Topics
---------------------
-* Tools of the Trade: R and Rstudio, git and Github
+Fortunately, tools exist---some old, some new---that can help
+educators systematically analyze their data and thus provide useful
+information to support the decisions they make. Those who regularly
+use these tools to engage with data have taken to calling themselves
+data scientists and their craft data science. One part computer
+science, one part statistics^[Or econometrics, depending on the
+discipline.], and one part domain knowledge, data science crosses
+disciplinary boundaries and takes many forms. Some data scientists are
+professionals hired specifically to do this work. Some are researchers
+in academic settings. Many, however, are people who wouldn't
+necessarily introduce themselves as data scientists but nevertheless
+_do data science_ as part of their standard work.
+
+The purpose of this book is to demystify the process of doing data
+science for educators who will be organizational leaders. These
+leaders may be instructors and administrators who simply want to
+better understand what the system's newly hired data scientist is
+talking about during meetings. Or they may be leaders who wish to do
+data science themselves so that they may improve their own
+decision-making and share their insights with their collegues. Others
+still may use these lessons as a stepping stone to becoming the
+education-focused data scientist whom others look to for support.
+
+This book is structured around developing skills in three areas:
+getting data, analyzing data to make predictions, and presenting the
+results of analyses. For each area, the subtopics are as follows:
+
+Getting Data 
+------------
+* Tools of the Trade
+    - R and Rstudio
+    - git and Github
 * Working with pre-processed data and flat files
-* Getting data from the web: webscraping, using forms, using Application Programming Interfaces
+* Getting data from the web
+    - webscraping
+    - filling forms
+    - application programming interfaces (APIs)
 * Using databases
 
-Analyzing Data Topics
-----------------------
+Analyzing Data
+--------------
 * Conditional means
 * Regression
 * Supervised learning: classification
-* Unsupervised learning: K-means and nearest neighbors clustering
+* Unsupervised learning:
+    - K-means and K-medians
+    - nearest neighbors clustering
 * Evaluating multiple models
 
-Presenting Data Analysis Topics
----------------------------------
-* Descriptives: histograms, density plots, bar plots, dot
-  plots
+Presenting Data
+---------------
+* Descriptives
+    - histograms
+    - density plots
+    - bar plots
+    - dot plots
 * Scatterplots
 * Lattice graphics and small multiples
 * Maps
